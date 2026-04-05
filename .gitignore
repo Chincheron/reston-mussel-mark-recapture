@@ -1,0 +1,31 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+
+# R
+.renv/
+renv/library/
+renv/staging/
+
+# Data - ignore files
+data/interim/*
+data/pipeline/*
+data/final/*
+# Data -  Keep structure
+!data/interim/.gitkeep
+!data/pipeline/.gitkeep
+!data/final/.gitkeep
+
+# Results - ignore files
+results/figures/*
+results/tables/*
+# Results - keep structure
+results/figures/.gitkeep
+results/tables/.gitkeep
+
+
+# OS
+.DS_Store
+Thumbs.db
