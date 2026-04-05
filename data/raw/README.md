@@ -28,3 +28,17 @@ This folder contains the original, immutable data sources for the project.
 ## Notes
 
 If preprocessing is required, it should be done in a pipeline script and written to `data/pipeline/`, not here.
+
+## File Description
+
+* 2024 and 2025 MR Summary - 1.xlsx
+    * Processed data for each year/site mark-recapture sampling?
+    * Summary/combination of Reston Mark Recapture Survyes (first set and New Jan 2026)
+* Reston Mark Recapture Surveys (first set).xlsx
+    * Data/Summary from 2024
+    * Includes Raw and processed data?
+* Reston Mark Recapture Surveys 2025 (New Jan 2026).xlsx
+    * Data/Summary from 2025
+    * Includes Raw and processed data?
+* Sacrificed & Random Dead Mussels 2023-2025.xlsx
+    * 
