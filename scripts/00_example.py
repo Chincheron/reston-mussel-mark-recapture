@@ -1,7 +1,19 @@
-from config.paths import ROOT
+from config.paths import ROOT, CONFIG
 
 # -----------------------------------------------------------------------------
 # Pulls path constants
 # -----------------------------------------------------------------------------
 
 print("Project root:", ROOT)
+
+# -----------------------------------------------------------------------------
+# Import config.yaml
+# -----------------------------------------------------------------------------
+
+import yaml
+
+config_file = CONFIG / 'config.yaml'
+with open(config_file) as f:
+    config = yaml.safe_load(f)
+
+sampling_dates = config['sites']['snakeden']['sampling_occasions']

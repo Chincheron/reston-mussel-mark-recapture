@@ -18,3 +18,5 @@ SCRIPTS = ROOT / "scripts/"
 DOC = ROOT / "doc"
 
 SRC = ROOT / "src"
+
+CONFIG = ROOT / 'config'

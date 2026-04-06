@@ -1,0 +1,42 @@
+# config.yaml
+
+sites:
+  snakeden:
+    name: "Snakeden Run"
+    sampling_occasions:
+      - occasion: 1
+        date: "2024-07-25"
+      - occasion: 2
+        date: "2024-08-29"
+      - occasion: 3
+        date: "2024-10-10"
+      - occasion: 4
+        date: "2025-03-12"
+      - occasion: 5
+        date: "2025-07-17"
+      - occasion: 6
+        date: "2025-08-29"
+      - occasion: 7
+        date: "2025-09-19"
+      - occasion: 8
+        date: "2025-09-30"
+
+  glade:
+    name: "Glade Run"
+    sampling_occasions:
+      - occasion: 1
+        date: "2024-07-25"
+      - occasion: 2
+        date: "2024-09-08"
+      - occasion: 3
+        date: "2024-10-11"
+      - occasion: 4
+        date: "2025-03-12"
+      - occasion: 5
+        date: "2025-07-18"
+      - occasion: 6
+        date: "2025-08-29"
+      - occasion: 7
+        date: "2025-09-18"
+      - occasion: 8
+        date: "2025-09-29"

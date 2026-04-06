@@ -41,4 +41,5 @@ If preprocessing is required, it should be done in a pipeline script and written
     * Data/Summary from 2025
     * Includes Raw and processed data?
 * Sacrificed & Random Dead Mussels 2023-2025.xlsx
-    * 
+    * List of dead mussels found and removed from population
+    * Exhaustive?
