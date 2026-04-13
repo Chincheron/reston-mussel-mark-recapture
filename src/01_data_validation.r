@@ -42,6 +42,25 @@ occasions_lookup |>
     return(df)
   }) |> 
   list_rbind()
+  
+}
 
+remove_missing_tags = function(df) {
+
+  total_rows = nrow(df)
+
+  df = encounter_data |> 
+    filter(!is.na(`Tag Number`))
+  # Confirm expected rows
+  removed_rows = 13
+  expected_rows = total_rows - removed_rows 
+    if (nrow(df) != expected_rows) {
+      warning(glue("Unexpected Row Count: got {nrow(df)}, expected {expected_rows}"))
+    } else {
+      total_rows = nrow(df)
+      message(glue("Removed {removed_rows} rows. New row count is {total_rows}"))
+    }
+  
+  return(df)
 
 }

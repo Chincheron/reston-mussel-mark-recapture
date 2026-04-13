@@ -21,6 +21,28 @@
 # Data Validation and QA
 
 1) Load encounter data from '2024 and 2025 Summary - 1.xlsx' in long format (sheets/ranges of data to be loaded are found in config.yaml)
+2) Deal with Null values
+    1) **Removed 13 rows with null values for 'Tag Number'**. These represent blank rows in the imported encounter data
+    2) Remaining null values should not be removed (missing lengths, etc.)
+3) Deal with duplicate values
+    1) Exact duplicates
+        1) 19 exact duplicates but all are due to unknown/untagged tag numbers. Will handle at later step
+    2) Tag duplicates (based on tag number, occasion, and site)
+        1) Most are unknown/untagged  which are dealt with later
+        2) 6 actual duplicates:
+            1) B013 - potentially a typo for one mussel or double-counted but no way to tell. Longer length (93) is closer to lengths on other occasions
+                * **Kept longer length (93)** 
+            2) B083 - Lengths are quite different so likely one was recorded incorrectly. Longer length was closer to other occasions
+                * **Kept longer length (89.5)** 
+            3) B444 - Lengths are quite different. Went with longer length based on temporal trends of other occasions
+                * **Kept longer length (96.7)**
+            4) C167 - Lengths are quite different. Kept shorter length based on other occasions
+                * **Kept shorter length (74.4)**
+            5) C891 - Dead with no length. Recorded as two different locations (riffle 3 and pool 3) but unclear where it was actually found
+                * **Pick one or mark as unknown?** #TODO
+            6) O062 - Similar lengths. Went with smaller based on lengths at other occasions
+                * **Kept shorter length (90.8)**
+
 * Encounter history QA/QC
 * Missing/null values, duplicates, validate data types and formats, flag outliers, assess completeness/consistency (cross check numbers against reports/known values, etc.)
 
@@ -57,3 +79,10 @@
 
 * save QA steps for review
 * Log number of rows/data at each step (e.g. Input - xxx rows, Output - yyy rows)
+    1) Data validation
+        a) Load Data
+            * Input - NA
+            * Output - 2,684 rows
+        b) Validate Data
+            * Input - 2,684 rows
+            * Remove 13 

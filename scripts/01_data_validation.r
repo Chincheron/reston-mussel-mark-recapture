@@ -45,12 +45,8 @@ dir_create(c(
 )
 
 # =============================================================================
-# 2. Load and validate encounter data
+# 2. Load encounter data
 # =============================================================================
-
-# -----------------------------------------------------------------------------
-# Load data
-# -----------------------------------------------------------------------------
 
 # --- Create lookup table for adding site/occasion columns to loaded data ---
 occasions_lookup = build_occasions_lookup(config)
@@ -59,3 +55,54 @@ occasions_lookup = build_occasions_lookup(config)
 input_file = path(source_folder, '2024 and 2025 MR Summary - 1.xlsx')
 encounter_data = read_encounter_data(occasions_lookup, input_file)
 
+# --- Export for review ---
+occasions_path = path(interim_folder, 'qc_occasions_lookup.csv')
+long_encounter_data_path = path(interim_folder, 'qc_encounter_long.csv')
+write_csv(occasions_lookup, occasions_path)
+write_csv(encounter_data, long_encounter_data_path)
+
+# rm(occasions_lookup, occasions_path, input_file, long_encounter_data_path)
+
+# =============================================================================
+# 3. Validate data
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Check for Null/missing values
+# -----------------------------------------------------------------------------
+
+total_rows = nrow(encounter_data)
+
+# Summarize missing values by column
+missing_summary = colSums(is.na(encounter_data))
+
+# Remove 13 rows where tag number is null (blank lines in imported data)
+encounter_data = remove_missing_tags(encounter_data)
+
+# -----------------------------------------------------------------------------
+# Check for duplicate values
+# -----------------------------------------------------------------------------
+
+# --- Exact duplicates ---
+dup_exact = encounter_data |> 
+  group_by_all() |> 
+  filter(n() > 1) |> 
+  ungroup()
+# Manual review
+dup_exact_path = path(interim_folder, 'qc_dup_exact.csv')
+write_csv(dup_exact, dup_exact_path)
+# All exact duplicates are due to uknown/untagged which are dealt with later
+
+# --- Duplicates by Tag/occasion/site ---
+dup_tag = encounter_data |> 
+  group_by(`Tag Number`, occasion, site) |> 
+  filter(n() > 1) |> 
+  ungroup()
+# Manual review
+dup_tag_path = path(interim_folder, 'qc_dup_tag.csv')
+write_csv(dup_tag, dup_tag_path)
+
+# Handle tag duplicates
+# Most are due to untagged/unknown 
+# But six are actual tag duplicates
+# Remove tag duplicates (see docs for detailed decisions)
