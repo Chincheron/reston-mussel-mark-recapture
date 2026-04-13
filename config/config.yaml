@@ -4,39 +4,44 @@ sites:
   snakeden:
     name: "Snakeden Run"
     sampling_occasions:
-      - occasion: 1
-        date: "2024-07-25"
-      - occasion: 2
-        date: "2024-08-29"
-      - occasion: 3
-        date: "2024-10-10"
-      - occasion: 4
-        date: "2025-03-12"
-      - occasion: 5
-        date: "2025-07-17"
-      - occasion: 6
-        date: "2025-08-29"
-      - occasion: 7
-        date: "2025-09-19"
-      - occasion: 8
-        date: "2025-09-30"
+      - { occasion: 1, date: "2024-07-25" }
+      - { occasion: 2, date: "2024-08-29" }
+      - { occasion: 3, date: "2024-10-10" }
+      - { occasion: 4, date: "2025-03-12" }
+      - { occasion: 5, date: "2025-07-17" }
+      - { occasion: 6, date: "2025-08-29" }
+      - { occasion: 7, date: "2025-09-19" }
+      - { occasion: 8, date: "2025-09-30" }
 
   glade:
     name: "Glade Run"
     sampling_occasions:
-      - occasion: 1
-        date: "2024-07-25"
-      - occasion: 2
-        date: "2024-09-08"
-      - occasion: 3
-        date: "2024-10-11"
-      - occasion: 4
-        date: "2025-03-12"
-      - occasion: 5
-        date: "2025-07-18"
-      - occasion: 6
-        date: "2025-08-29"
-      - occasion: 7
-        date: "2025-09-18"
-      - occasion: 8
-        date: "2025-09-29"
+      - { occasion: 1, date: "2024-07-25" }
+      - { occasion: 2, date: "2024-09-08" }
+      - { occasion: 3, date: "2024-10-11" }
+      - { occasion: 4, date: "2025-03-12" }
+      - { occasion: 5, date: "2025-07-18" }
+      - { occasion: 6, date: "2025-08-29" }
+      - { occasion: 7, date: "2025-09-18" }
+      - { occasion: 8, date: "2025-09-29" }
+
+# Defined ranges for importing encounter data
+sheet_ranges:
+  snakeden:
+    - { occasion: 1, sheet: "2024 Snakeden MR", range: "S3:X323",   expected_rows: 320 }
+    - { occasion: 2, sheet: "2024 Snakeden MR", range: "Z3:AE196",  expected_rows: 193 }
+    - { occasion: 3, sheet: "2024 Snakeden MR", range: "AG3:AL86",  expected_rows: 83  }
+    - { occasion: 4, sheet: "2024 Snakeden MR", range: "AN3:AS81",  expected_rows: 78  }
+    - { occasion: 5, sheet: "2025 Snakeden MR", range: "A4:F78",    expected_rows: 74  }
+    - { occasion: 6, sheet: "2025 Snakeden MR", range: "H4:K72",    expected_rows: 68  }
+    - { occasion: 7, sheet: "2025 Snakeden MR", range: "O4:T78",    expected_rows: 74  }
+    - { occasion: 8, sheet: "2025 Snakeden MR", range: "V4:Y66",    expected_rows: 62  }
+  glade:
+    - { occasion: 1, sheet: "2024 Glade MR", range: "R3:V98",    expected_rows: 95  }
+    - { occasion: 2, sheet: "2024 Glade MR", range: "X3:AC159",  expected_rows: 156 }
+    - { occasion: 3, sheet: "2024 Glade MR", range: "AE3:AI254", expected_rows: 251 }
+    - { occasion: 4, sheet: "2024 Glade MR", range: "AK3:AP142", expected_rows: 139 }
+    - { occasion: 5, sheet: "2025 Glade MR", range: "B4:G301",   expected_rows: 297 }
+    - { occasion: 6, sheet: "2025 Glade MR", range: "I4:N297",   expected_rows: 293 }
+    - { occasion: 7, sheet: "2025 Glade MR", range: "P4:U238",   expected_rows: 234 }
+    - { occasion: 8, sheet: "2025 Glade MR", range: "W4:AB271",  expected_rows: 267 }

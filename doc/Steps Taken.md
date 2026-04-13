@@ -20,7 +20,7 @@
 
 # Data Validation and QA
 
-* Load encounter data from '2024 and 2025 Summary - 1.xlsx' (four sheets referenced above)
+1) Load encounter data from '2024 and 2025 Summary - 1.xlsx' in long format (sheets/ranges of data to be loaded are found in config.yaml)
 * Encounter history QA/QC
 * Missing/null values, duplicates, validate data types and formats, flag outliers, assess completeness/consistency (cross check numbers against reports/known values, etc.)
 
