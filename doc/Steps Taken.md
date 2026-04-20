@@ -42,6 +42,27 @@
                 * **Pick one or mark as unknown?** #TODO
             6) O062 - Similar lengths. Went with smaller based on lengths at other occasions
                 * **Kept shorter length (90.8)**
+4) Validate data types and formats
+    1) `Length (mm)` was character instead of numeric due to various non-numeric values. Most were no data ("-") or data that should have been in other columns ("dead"). Four were numbers that were uncertain. Following decisions were made regarding theese non-numeric values:
+        1) Where `Length (mm)` was "-", "DEAD", or "dead": **Changed values to NA**
+        2) Where `Length (mm)` was "112.3(???)": **Changed to 112.3**
+            * Not found on any other occasions. Unusually large but kept value of 112.3 
+        3) Where `Length (mm)` was "66.4 (66.9?)": **Changed to "66.4"**
+            * Based on lengths at other occasions
+        4) Where `Length (mm)` was "75.1 (76.1?)": **Changed to "76.1"**
+            * Based on lengths at other occasions
+        5) Where `Length (mm)` was "83(.9?)": **Changed to "83.9"**  
+            * Not found on any other occasions but kept as 83.9
+5) Validate value ranges and categories
+    1) Confirm no extreme or completely implausible values (e.g., negative or large lengths, reasonable date ranges) for these columns:
+        * "Length (mm)"
+        * "occasion"
+        * "date"
+    2) Standardize accepted values for each category column:
+        1) Location Found
+        2) Status
+        3) Where Found
+        4) site
 
 * Encounter history QA/QC
 * Missing/null values, duplicates, validate data types and formats, flag outliers, assess completeness/consistency (cross check numbers against reports/known values, etc.)

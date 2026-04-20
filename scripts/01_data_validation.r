@@ -116,3 +116,56 @@ dup_tag = encounter_data |>
 # Manual review
 dup_tag_path = path(interim_folder, 'qc_dup_tag_confirm.csv')
 write_csv(dup_tag, dup_tag_path)
+
+# -----------------------------------------------------------------------------
+# Validate data types and formats
+# -----------------------------------------------------------------------------
+
+validate_encounter_data_types(encounter_data)
+
+# --- Fix data type mismatch ---
+# Length not numeric due to several non-numeric values
+# Fix values before converting to numeric data type
+
+# Find length values that cannot be converted to numeric data type
+encounter_data |> 
+  filter(is.na(as.numeric(`Length (mm)`))) |> 
+  count(`Length (mm)`)
+
+# Handle length mismatches and convert to numeric
+encounter_data = handle_length_mismatch(encounter_data) 
+
+# Final validation of data types
+validate_encounter_data_types(encounter_data)
+
+# Manual review
+data_type_validation = path(interim_folder, 'qc_data_type_confirm.csv')
+write_csv(encounter_data, data_type_validation)
+
+# -----------------------------------------------------------------------------
+# Validate value ranges and categories
+# -----------------------------------------------------------------------------
+
+# Check length, occasions, and dates for unreasonable/impossible values
+# This is NOT an assessment of outliers
+validate_values(encounter_data)
+
+source(custom_path)
+
+# Create distinct values for determining standard categories and finding typos
+df = encounter_data
+unique_locations = df |> 
+  group_by(`Location Found`, `site`) |> 
+  distinct(`Location Found`)
+unique_status = df |> 
+  distinct(Status)
+unique_where_found = df |> 
+  distinct(`Where Found`)
+unique_site = df |> 
+  distinct(site)
+
+#TODO - Low - Review unique_locations for standardizing. 
+# Only needed if we do something with this column in MARK analysis 
+
+# Final validation
+validate_categories(encounter_data)

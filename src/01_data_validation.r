@@ -1,3 +1,5 @@
+library(assertr)
+
 # Functions used in 01_data_validation.r
 
 build_occasions_lookup = function(config){
@@ -88,5 +90,61 @@ remove_tag_duplicates = function(df) {
   }
 
   return(df)
+
+}
+
+validate_encounter_data_types = function (df) {
+  df |> 
+    chain_start() |> 
+      verify(is.character(`Location Found`)) |> 
+      verify(is.character(`Tag Number`)) |> 
+      verify(is.numeric(`Length (mm)`)) |> 
+      verify(is.character(`Status`)) |> 
+      verify(is.character(`Where Found`)) |> 
+      verify(is.character(`Notes`)) |> 
+      verify(is.character(`site`)) |> 
+      verify(is.integer(`occasion`)) |>
+      verify(is.Date(`date`)) |> 
+    chain_end()
+  
+}
+
+handle_length_mismatch = function(df){
+  
+  
+  df = df |> 
+  # Replace non-numeric values
+  mutate(
+    `Length (mm)`= case_when(
+      # Replace clearly nonnumeric with NA
+      `Length (mm)` %in% c("-", "DEAD", "dead") ~ NA,
+      # Handle specific cases
+      `Length (mm)` == "66.4 (66.9?)" ~ "66.4",
+      `Length (mm)` == "112.3(???)" ~ "112.3",
+      `Length (mm)` == "75.1 (76.1?)" ~ "76.1",
+      `Length (mm)` == "83(.9?)" ~ "83.9",
+      .default = `Length (mm)`
+    )  
+  ) |> 
+    # Convert column to numeric datatype
+    mutate(`Length (mm)` = as.numeric(`Length (mm)`))
+
+}
+
+validate_values = function(df) {
+  df |> 
+    chain_start() |> 
+      assert(within_bounds(0, 300), `Length (mm)`) |> 
+      assert(within_bounds(0,100), occasion) |> 
+      assert(within_bounds(as.Date("2023-01-01"), as.Date("2026-12-31")), `date`) |> 
+    chain_end()
+}
+
+validate_categories = function(df) {
+  location_set = list("Pool 6")
+  df |> 
+    chain_start() |> 
+      assert(in_set(location_set), `Location Found`) |> 
+    chain_end()
 
 }
