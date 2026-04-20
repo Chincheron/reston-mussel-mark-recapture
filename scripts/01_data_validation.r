@@ -83,7 +83,7 @@ encounter_data = remove_missing_tags(encounter_data)
 # Check for duplicate values
 # -----------------------------------------------------------------------------
 
-# --- Exact duplicates ---
+# --- Find Exact duplicates ---
 dup_exact = encounter_data |> 
   group_by_all() |> 
   filter(n() > 1) |> 
@@ -91,9 +91,9 @@ dup_exact = encounter_data |>
 # Manual review
 dup_exact_path = path(interim_folder, 'qc_dup_exact.csv')
 write_csv(dup_exact, dup_exact_path)
-# All exact duplicates are due to uknown/untagged which are dealt with later
+# All exact duplicates are due to unknown/untagged which are dealt with later
 
-# --- Duplicates by Tag/occasion/site ---
+# --- Find Tag Duplicates (grouped by Tag/occasion/site) ---
 dup_tag = encounter_data |> 
   group_by(`Tag Number`, occasion, site) |> 
   filter(n() > 1) |> 
@@ -102,7 +102,17 @@ dup_tag = encounter_data |>
 dup_tag_path = path(interim_folder, 'qc_dup_tag.csv')
 write_csv(dup_tag, dup_tag_path)
 
-# Handle tag duplicates
+# --- Handle tag duplicates ---
 # Most are due to untagged/unknown 
 # But six are actual tag duplicates
-# Remove tag duplicates (see docs for detailed decisions)
+# Remove these six tag duplicates (see docs for detailed decisions)
+encounter_data = remove_tag_duplicates(encounter_data)
+
+# --- Confirm all tag duplicates handled ---
+dup_tag = encounter_data |> 
+  group_by(`Tag Number`, occasion, site) |> 
+  filter(n() > 1) |> 
+  ungroup()
+# Manual review
+dup_tag_path = path(interim_folder, 'qc_dup_tag_confirm.csv')
+write_csv(dup_tag, dup_tag_path)

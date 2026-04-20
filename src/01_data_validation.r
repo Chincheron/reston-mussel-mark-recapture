@@ -64,3 +64,29 @@ remove_missing_tags = function(df) {
   return(df)
 
 }
+
+remove_tag_duplicates = function(df) {
+  total_rows = nrow(df)
+  removed_rows = 6
+  expected_rows = total_rows - removed_rows 
+
+  df = df |> 
+    filter(!(`Tag Number` == 'B013' & occasion == '6' & `Length (mm)` == 92.4)) |> 
+    filter(!(`Tag Number` == 'B083' & occasion == '7' & `Length (mm)` == 72.2)) |> 
+    filter(!(`Tag Number` == 'B444' & occasion == '5' & `Length (mm)` == 88.8)) |> 
+    filter(!(`Tag Number` == 'C167' & occasion == '5' & `Length (mm)` == 109.1)) |>
+    #TODO Confirm which C891 tag to remove
+    filter(!(`Tag Number` == 'C891' & `Location Found` == 'Riffle 3')) |> 
+    filter(!(`Tag Number` == 'O062' & occasion == '6' & `Length (mm)` == 91.5))
+
+  # Confirm correct number of rows
+  if (nrow(df) != expected_rows) {
+    warning(glue("Unexpected Row Count: got {nrow(df)}, expected {expected_rows}"))
+  } else {
+    total_rows = nrow(df)
+    message(glue("Removed {removed_rows} rows. New row count is {total_rows}"))
+  }
+
+  return(df)
+
+}
