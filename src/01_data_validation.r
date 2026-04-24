@@ -142,9 +142,25 @@ validate_values = function(df) {
 
 validate_categories = function(df) {
   location_set = list("Pool 6")
+  status_set = list("Alive", "Dead")
+  site_set = list("glade", "snakeden")
+  where_found_set = list()
   df |> 
     chain_start() |> 
-      assert(in_set(location_set), `Location Found`) |> 
+      assert(in_set(status_set), Status) |> 
+      assert(in_set(site_set), site) |> 
     chain_end()
+
+}
+
+standardize_categories = function(df) {
+  df = df |> 
+  mutate(
+    Status = case_when(
+      Status == 'alive' ~ 'Alive',
+      Status == 'dead' ~ 'Dead',
+      .default = Status
+    )
+  )
 
 }

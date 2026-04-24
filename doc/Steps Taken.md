@@ -61,6 +61,8 @@
     2) Standardize accepted values for each category column:
         1) Location Found
         2) Status
+            * "alive" > "Alive"
+            * "dead" > "Dead"
         3) Where Found
         4) site
 

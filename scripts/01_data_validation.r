@@ -121,7 +121,7 @@ write_csv(dup_tag, dup_tag_path)
 # Validate data types and formats
 # -----------------------------------------------------------------------------
 
-validate_encounter_data_types(encounter_data)
+#validate_encounter_data_types(encounter_data)
 
 # --- Fix data type mismatch ---
 # Length not numeric due to several non-numeric values
@@ -150,22 +150,20 @@ write_csv(encounter_data, data_type_validation)
 # This is NOT an assessment of outliers
 validate_values(encounter_data)
 
-source(custom_path)
-
 # Create distinct values for determining standard categories and finding typos
-df = encounter_data
-unique_locations = df |> 
-  group_by(`Location Found`, `site`) |> 
-  distinct(`Location Found`)
-unique_status = df |> 
-  distinct(Status)
-unique_where_found = df |> 
-  distinct(`Where Found`)
-unique_site = df |> 
-  distinct(site)
+unique_locations = encounter_data |> 
+  count(`Location Found`, site)
+unique_status = encounter_data |> 
+  count(Status)
+unique_where_found = encounter_data |> 
+  count(`Where Found`)
+unique_site = encounter_data |> 
+  count(site)
 
-#TODO - Low - Review unique_locations for standardizing. 
-# Only needed if we do something with this column in MARK analysis 
+# Standardize status; locations and where found not required at this time (4/24/26)
+encounter_data = standardize_categories(encounter_data)
+#TODO - Low - Review unique_locations and unique_where_found for standardizing. 
+# Only needed if we do something with these columns in MARK analysis 
 
-# Final validation
+# Final validation of categories
 validate_categories(encounter_data)
