@@ -61,13 +61,46 @@
     2) Standardize accepted values for each category column:
         1) Location Found
         2) Status
-            * "alive" > "Alive"
-            * "dead" > "Dead"
+            * **"alive" > "Alive"**
+            * **"dead" > "Dead"**
         3) Where Found
         4) site
+            * snakeden
+            * glade
+6) Validate Tag Format (i.e., X000)
+    1) **"Unknown" and "Untagged" values (and typos of same) > "Untagged"**
+    2) **"Shell Piece", "Shell Half", and variations/typos of same > "Shell Piece"**
+    3) **Capitalize all tags where first letter was lower case**  
+    4) Four cases where last digit of tag is missing. No feasible way of determining correct tag. Most likely will classify as Untagged when preparing for MARK analysis
+        * **No change - Dealt with at later step**
+    5) One case where letter is unknown (?800). No feasible way of determining correct tag (Releases included B800, C800, and D800). Most likely will classify as Untagged when preparing for MARK analysis
+        * **No change - Dealt with at later step**
+6) Assess completeness/consistency
+    1) Crosscheck against report totals
+        1) Figure 2 (Alive and Dead found on each occasion by site)
+            1) glade:
+                1) Occasion 5 A/D
+                    * 264/33 - report 
+                    * 262/32 - data 
+                    * Discrepancy due to duplicate removal
+                2) Occasion 6 A
+                    * 271 - report
+                    * 269 - data
+                    * Duplicate removal
+                3) Occasion 7 A
+                    * 214 - report
+                    * 213 - data
+                    * Duplicate removal
+            2) snakeden:
+                1) Occasion 4 A/D
+                    * 35/41 - report
+                    * 33/43 - data
+                    * Processed and raw data both show 33/42. Unclear where 35/41 from report is coming from
+                2) Occasion 7 D
+                    * 40 - report
+                    * 39 - data
+                    * Processed and raw data both show 39. Unclear where 40 from report is coming from
 
-* Encounter history QA/QC
-* Missing/null values, duplicates, validate data types and formats, flag outliers, assess completeness/consistency (cross check numbers against reports/known values, etc.)
 
 # Data Cleaning
 

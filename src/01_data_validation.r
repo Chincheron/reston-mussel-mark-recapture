@@ -164,3 +164,34 @@ standardize_categories = function(df) {
   )
 
 }
+
+validate_tag_format = function(df, error_path){
+  valid_tag = function(x) grepl("^[A-Z]\\d{3}$", x)
+
+  errors = df |> 
+    chain_start() |> 
+      assert(valid_tag, `Tag Number`) |> 
+    chain_end(error_fun = error_df_return)
+
+  if (inherits(errors, "data.frame")) {
+    write_csv(errors, error_path)
+    message("Validation errors saved to ", error_path)
+  } else {
+    message("No validation errors found")
+  }
+  
+  invisible(errors)
+}
+
+fix_tag_format = function(df){
+  
+  df = df |>
+    mutate(
+      `Tag Number` = case_when(
+        `Tag Number` %in% c("untagged", "Untagged", "Unknown", "unknown") ~ "Untagged",
+        grepl("shell", `Tag Number`, ignore.case = TRUE) ~ "Shell Piece",
+        .default = toupper(`Tag Number`)
+      )
+    ) 
+
+}

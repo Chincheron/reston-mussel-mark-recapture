@@ -167,3 +167,36 @@ encounter_data = standardize_categories(encounter_data)
 
 # Final validation of categories
 validate_categories(encounter_data)
+
+# -----------------------------------------------------------------------------
+# Validate Tag Format
+# -----------------------------------------------------------------------------
+source(custom_path)
+# Check for any tags not fitting the format X000 and export for review
+error_path = path(interim_folder, "error_validate_tag_format.csv")
+validate_tag_format(encounter_data, error_path)
+
+# Fix appropriate issues - see docs for details
+source(custom_path)
+df = fix_tag_format(encounter_data)
+confirm_error_path = path(interim_folder, "error_validate_tag_format_confirm.csv")
+validate_tag_format(df, confirm_error_path)
+# -----------------------------------------------------------------------------
+# Assess Completeness/Consistency
+# -----------------------------------------------------------------------------
+
+# --- Crosscheck against report numbers ---
+
+# Check number of alive/dead at each site/occasion against Figure 2 from report
+status_found_by_occasion = encounter_data |> 
+  count(site, occasion, Status, )
+status_found_path = path(interim_folder, 'qc_report_comp_Fig_2.csv')
+write_csv(status_found_by_occasion, status_found_path)
+# Manual comparison to Figure 2 from report 
+# Fix inconsistencies - see Docs for details
+
+# =============================================================================
+# 4. Final export
+# =============================================================================
+final_qc_path = path(interim_folder, 'qc_final.csv')
+write_csv(encounter_data, final_qc_path)
