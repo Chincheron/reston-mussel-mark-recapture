@@ -24,7 +24,7 @@ config_file = as.character(global_paths$CONFIG / 'config.yaml')
 config = yaml.load_file(config_file)
 
 # Custom library
-custom_path = path(global_paths$SRC, '01_data_validation.r')
+custom_path = path(global_paths$SRC, '01_encounter_data_validation.r')
 source(custom_path)
 
 # -----------------------------------------------------------------------------
@@ -32,7 +32,7 @@ source(custom_path)
 # -----------------------------------------------------------------------------
 
 # Set directories
-SCRIPT_NAME = '01_data_validation'
+SCRIPT_NAME = '01_encounter_data_validation'
 source_folder = path(global_paths$DATA_RAW)
 pipeline_folder = path(global_paths$DATA_PIPELINE, SCRIPT_NAME)
 interim_folder = path(global_paths$DATA_INTERIM, SCRIPT_NAME)
@@ -178,9 +178,9 @@ validate_tag_format(encounter_data, error_path)
 
 # Fix appropriate issues - see docs for details
 source(custom_path)
-df = fix_tag_format(encounter_data)
+encounter_data = fix_tag_format(encounter_data)
 confirm_error_path = path(interim_folder, "error_validate_tag_format_confirm.csv")
-validate_tag_format(df, confirm_error_path)
+validate_tag_format(encounter_data, confirm_error_path)
 # -----------------------------------------------------------------------------
 # Assess Completeness/Consistency
 # -----------------------------------------------------------------------------
@@ -198,5 +198,15 @@ write_csv(status_found_by_occasion, status_found_path)
 # =============================================================================
 # 4. Final export
 # =============================================================================
+
+# -----------------------------------------------------------------------------
+# Export for final qc review
+# -----------------------------------------------------------------------------
 final_qc_path = path(interim_folder, 'qc_final.csv')
 write_csv(encounter_data, final_qc_path)
+
+# -----------------------------------------------------------------------------
+# Export for pipeline
+# -----------------------------------------------------------------------------
+pipeline_path = path(pipeline_folder, "01_encounter_data_validation.csv")
+write_csv(encounter_data, pipeline_path)
