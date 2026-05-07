@@ -100,6 +100,27 @@
                     * 40 - report
                     * 39 - data
                     * Processed and raw data both show 39. Unclear where 40 from report is coming from
+3) Deal with mismatched encounter sites
+    1) When a tag was encountered multiple times but only one occasion had a mismatched site, we changed to match other encounter sites:
+        1) **B007 - snakeden > glade** 
+        2) **B934 - snakeden > glade**
+        3) **C062 - glade > snakeden**
+        4) **C143 - glade > snakeden**
+        5) **C567 - snakeden > glade**
+        6) **C906 - snakeden > glade**
+    2) When a tag was encountered only twice with one mismatch, we changed to match the presumed site
+        1) **B073, B455, C240, C315, C423, C607, C745, D004, D005, D036, D041 - changed site values to same as presumed (release) site** 
+    3) When a tag was encounterd with a 'Dead' Status on an occasion before later being encountered as 'Alive', the 'Dead' Occurrence was removed from the data:
+        1) **B062, B193, B357, B667, C012, C293, C449, C546, C573, C588, C918, D104, D393 - removed where status was 'Dead'**  
+    4) Multiple dead encounters of same tag, we removed the one that did not match presumed site = 
+        1) **B932 - Remove 'Dead' encounter at glade**
+        2) **D333 - Remove 'Dead' encounter at snakeden**
+    5) Tag not in release data and is found at two different sites. Probably a typo?
+        1) **Remove D860**
+    6) New tag found twice at different sites. Unclear why. Removed
+        2) **Remove O060**
+4) Deal with tags found at different sites than presumed release sites
+
 
 
 # Data Cleaning
