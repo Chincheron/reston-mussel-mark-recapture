@@ -162,62 +162,25 @@ capture_history = combined_data |>
     values_fill = list(value = 0)
   )
 
+# -----------------------------------------------------------------------------
+# Create Capture History column
+# -----------------------------------------------------------------------------
+
+source(custom_lib_3)
+capture_history = create_ch_col(capture_history)
+
+
 # Review capture history tables
 save_path = path(interim_folder, "qc_capture_history.csv")
 write_csv(capture_history, save_path)
+
+#TODO - Confirm that encounter histories were built correctly
 
 #TODO - deal with handful of mismatches compared to release data
 
 #TODO - check only one occurence of each tag
 
 # -----------------------------------------------------------------------------
-# Confirm that No individuals are found alive after being found dead
+# TODO Confirm that No individuals are found alive after being found dead
 # -----------------------------------------------------------------------------
-
-# -----------------------------------------------------------------------------
-# Create Capture History column
-# -----------------------------------------------------------------------------
-
-# Columns to be combined into single encounter history column
-encounter_cols = c(
-    'occasion_0',
-    'occasion_1',
-    'occasion_2',
-    'occasion_3',
-    'occasion_4',
-    'occasion_5',
-    'occasion_6',
-    'occasion_7',
-    'occasion_8'
-)
-
-status_cols = c(
-    'occasion_1_status',
-    'occasion_2_status',
-    'occasion_3_status',
-    'occasion_4_status',
-    'occasion_5_status',
-    'occasion_6_status',
-    'occasion_7_status',
-    'occasion_8_status'
-)
-
-#logic/flow:
-#create live encounter ch
-# if occasion_x = 1 and occasion_x_status = 'Alive', then '1', else 0
-#create dead encounter ch:
-# if occasion_x_status = 'Alive', then interval x = '0', if 'Dead', then '1'
-#combine both value alternatingly
-
-# Column title must be 'ch' for later use with RMARK
-df = capture_history
-
-
-df = df |> 
-  unite(
-    ch,
-    all_of(encounter_cols),
-    sep = "",
-    remove = TRUE
-  )
 

@@ -158,3 +158,69 @@ fix_multiple_encounters = function(df){
     )
     
 }
+
+create_ch_col = function(df){
+  encounter_cols = c(
+    'occasion_0',
+    'occasion_1',
+    'occasion_2',
+    'occasion_3',
+    'occasion_4',
+    'occasion_5',
+    'occasion_6',
+    'occasion_7',
+    'occasion_8'
+  )
+
+  status_cols = c(
+    'occasion_1_status',
+    'occasion_2_status',
+    'occasion_3_status',
+    'occasion_4_status',
+    'occasion_5_status',
+    'occasion_6_status',
+    'occasion_7_status',
+    'occasion_8_status'
+  )
+
+  # Create live encounter ch
+  # if occasion_x = 1 and occasion_x_status = 'Alive', then '1', else 0
+  df$live_ch = apply(capture_history[encounter_cols], 1, paste0, collapse = "" )
+
+  #create dead encounter ch:
+  # if occasion_x_status = 'Alive', then interval x = '0', if 'Dead', then '1'
+  df = df |> 
+    mutate(
+      dead_ch = apply(
+        pick(all_of(status_cols)),
+        1,
+        function(x) paste0(
+          case_when(
+            x == "Dead" ~ "1",
+            x == "Alive" ~ "0",
+            .default = "0"
+          ),
+          collapse = ""
+        )
+      ),
+      dead_ch = paste0(dead_ch, "0")
+    )
+     
+  #combine both value alternatingly
+  df = df |> 
+    mutate(
+      ch = map2_chr(
+        live_ch, dead_ch, function(live, dead) {
+          paste0(
+            c(rbind(
+              strsplit(live, "")[[1]],
+              strsplit(dead, "")[[1]]
+            )),
+            collapse = ""
+          )
+        })
+    )
+  
+  return(df)
+
+}
