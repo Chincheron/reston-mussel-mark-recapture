@@ -120,6 +120,12 @@
     6) New tag found twice at different sites. Unclear why. Removed
         2) **Remove O060**
 4) Deal with tags found at different sites than presumed release sites
+    1) Any tag where encounter site did not match presumed release site (Except for retagged (i.e., Tags beginning with letter 'O') - **presumed_site changed to encounter site**
+5) Check for tags that were encountered multiple times on the same occasion
+    1) **C062 - remove row with 98.8 for length**
+    2) **D004 - remove row with 87.5 for length**
+    3) **D005 - remove row with 65.1 for length**
+    4) **O034 - remove row with 93.4 for length**
 
 
 

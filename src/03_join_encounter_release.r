@@ -94,3 +94,67 @@ fix_mismatched_encounter_sites = function(df){
   
   return(df)
 }
+
+check_presumed_site = function(df){
+  df = df |> 
+  mutate(
+    presume_match = case_when(
+      str_to_lower(presumed_site) == str_to_lower(site) ~ TRUE,
+      .default = FALSE
+    ) 
+  ) |> 
+  filter(presume_match == FALSE 
+    & occasion != 0 
+    & !str_starts(`Tag Number`, "O")
+    & !(`Tag Number` %in% c("?800", "B44-", "B90-", "B98-", "D03-")) 
+    )
+  
+  return(df)
+
+}
+
+fix_presumed_sites = function(df){
+  df = df |> 
+  mutate(
+    presumed_site = case_when(
+      `Tag Number` %in% presume_site_no_match$`Tag Number` &
+        !is.na(site)~ site,
+      .default = presumed_site
+    )  
+  ) |> 
+  group_by(`Tag Number`) |> 
+  mutate(
+    presumed_site = first(na.omit(site))
+  ) |> 
+  ungroup()
+  
+
+  return(df)
+}
+
+check_multiple_encounters_per_occasion = function(df){
+  multiple_encounters_per_occasion = df |> 
+    count(`Tag Number`, occasion) |> 
+    filter(n>1) |> 
+    select(`Tag Number`, occasion)
+  duplicate_rows = df |> 
+    semi_join(
+      multiple_encounters_per_occasion,
+      by = c("Tag Number", "occasion")
+    )
+
+  return(duplicate_rows)
+}
+
+fix_multiple_encounters = function(df){
+  rows_to_remove = tibble(
+    `Tag Number` = c("C062", "D004", "D005", "O034"),
+    `Length (mm)` = c(98.8, 87.5, 65.1, 93.4)
+  )
+  df = df |> 
+    anti_join(
+      rows_to_remove,
+      by = c("Tag Number", "Length (mm)")
+    )
+    
+}
