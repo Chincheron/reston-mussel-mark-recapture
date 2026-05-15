@@ -142,6 +142,13 @@ write_csv(multiple_encounters, save_path)
 # -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
+# Remove tags never found alive
+# -----------------------------------------------------------------------------
+# Some tags were found dead bu missing data on release timing
+# RMARK cannot handle these cases so removed
+combined_data = remove_never_released(combined_data)
+
+# -----------------------------------------------------------------------------
 # Final review of combined data before MARK prep
 # -----------------------------------------------------------------------------
 save_path = path(interim_folder, "qc_combined_data_final.csv")

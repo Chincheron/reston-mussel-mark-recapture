@@ -159,6 +159,30 @@ fix_multiple_encounters = function(df){
     
 }
 
+remove_never_released = function(df){
+  remove_list = c(
+    "B98-",
+    "D03-",
+    "O015",
+    "O016",
+    "O031",
+    "O033",
+    "C248",
+    "O057",
+    "D863",
+    "B530",
+    "D927"
+  )
+
+  df = df |> 
+    filter(
+      !(`Tag Number` %in% remove_list)
+    )
+  
+  return(df)
+
+}
+
 create_ch_col = function(df){
   encounter_cols = c(
     'occasion_0',
@@ -246,3 +270,4 @@ create_ch_col = function(df){
   return(df)
 
 }
+
