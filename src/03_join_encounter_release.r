@@ -308,6 +308,14 @@ create_ch_qc_cols = function(df){
         gregexpr("1", live_ch),
         \(x) paste(x[x > 0], collapse = ",")
       )
+    ) |> 
+    mutate(position_first_dead = str_sub(dead_intervals, 1, 1)) |>
+    mutate(max_live_occ = as.numeric(str_sub(live_intervals, start = -1L, end = -1L)) - 1) |> 
+    mutate(alive_after_dead =
+      if_else(as.numeric(max_live_occ) < as.numeric(position_first_dead),
+        FALSE,
+        TRUE    
+      )
     )
   return(df)
 
@@ -326,7 +334,6 @@ fix_multiple_dead_occurences = function(df){
   )
 
   df = df |> 
-    mutate(position_first_dead = str_sub(dead_intervals, 1, 1)) |> 
     mutate(
       across(status_cols, 
         function(x){
@@ -341,6 +348,74 @@ fix_multiple_dead_occurences = function(df){
       )
     )
   
+  return(df)
+
+}
+
+check_alive_after_dead = function(df){
+  df = df |>
+    filter(position_first_dead != "") |>  
+    mutate(alive_after_dead =
+      if_else(as.numeric(max_live_occ) < as.numeric(position_first_dead),
+        FALSE,
+        TRUE    
+      )
+    ) |> 
+    filter(alive_after_dead == TRUE)
+
+  return(df)
+
+}
+
+fix_multiple_alive_after_dead = function(df){
+  
+  occasion_1_lookup = c("C320", "C626", "C484", "B980", "B943")
+  occasion_4_lookup = c("D186")
+  
+  df = df |> 
+    mutate(
+      occasion_1_status = if_else(`Tag Number` %in% occasion_1_lookup, NA, occasion_1_status),
+      occasion_4_status = if_else(`Tag Number` %in% occasion_4_lookup, NA, occasion_4_status)
+    )
+  
+  df = create_ch_col(df) |> 
+  create_ch_qc_cols()
+  
+  return(df)
+
+}
+
+
+fix_alive_after_dead = function(df){
+  status_cols = c(
+    'occasion_1_status',
+    'occasion_2_status',
+    'occasion_3_status',
+    'occasion_4_status',
+    'occasion_5_status',
+    'occasion_6_status',
+    'occasion_7_status',
+    'occasion_8_status'
+  )
+
+  df = df |> 
+    mutate(
+      across(status_cols, 
+        function(x){
+          if_else(
+            alive_after_dead == TRUE &
+            as.numeric(str_extract(cur_column(), "(?<=_)\\d+(?=_)")) == max_live_occ &
+              x == "Alive",
+            NA,
+            x
+          )
+        }
+      )
+    )
+
+  df = create_ch_col(df) |> 
+  create_ch_qc_cols()
+
   return(df)
 
 }

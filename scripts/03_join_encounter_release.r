@@ -189,10 +189,28 @@ save_path = path(interim_folder, "qc_capture_history_v2.csv")
 write_csv(capture_history, save_path)
 
 
-# --- For tags where found alive after dead, remove alive ---
-df = capture_history
+# --- Check and remove tags where found alive after dead (remove alive) ---
+alive_after_dead  = check_alive_after_dead(capture_history)
 
-test = df |> 
+#Review
+save_path = path(interim_folder, "qc_alive_after_dead.csv")
+write_csv(alive_after_dead, save_path)
+
+# For > Alive occurences after Dead, Remove Dead occurrence 
+source(custom_lib_3)
+capture_history = fix_multiple_alive_after_dead(capture_history)
+
+# Remove any 'Alive' occurences after 'Dead'
+source(custom_lib_3)
+capture_history = fix_alive_after_dead(capture_history)
+
+# Confirm fix
+alive_after_dead = check_alive_after_dead(capture_history)
+save_path = path(interim_folder, "qc_alive_after_dead_confirm.csv")
+write_csv(alive_after_dead, save_path)
+
+# --- Check for never released tags ---
+
 
 
 #TODO - Confirm that encounter histories were built correctly
