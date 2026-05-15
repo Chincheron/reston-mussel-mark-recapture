@@ -146,6 +146,7 @@ write_csv(multiple_encounters, save_path)
 # -----------------------------------------------------------------------------
 # Some tags were found dead bu missing data on release timing
 # RMARK cannot handle these cases so removed
+# TODO - examine these closer if time permits
 combined_data = remove_never_released(combined_data)
 
 # -----------------------------------------------------------------------------
@@ -158,28 +159,41 @@ write_csv(combined_data, save_path)
 # 5. Prepare data for MARK analysis
 # =============================================================================
 
-capture_history = combined_data |> 
-  mutate(value = 1) |> 
-  select(`Tag Number`, presumed_site, occasion, value, Status) |> 
-  distinct() |> 
-  pivot_wider(
-    names_from = occasion,
-    values_from = c(value, Status),
-    names_glue = "occasion_{occasion}{ifelse(.value == 'Status', '_status', '')}",
-    values_fill = list(value = 0)
-  )
+# -----------------------------------------------------------------------------
+# Create capture history columns for each unique tag
+# -----------------------------------------------------------------------------
+  
+capture_history = create_capture_history_table(combined_data)
 
 # -----------------------------------------------------------------------------
-# Create Capture History column
+# QC of capture history columns
 # -----------------------------------------------------------------------------
 
-source(custom_lib_3)
-capture_history = create_ch_col(capture_history)
-
-
+capture_history = create_ch_qc_cols(capture_history)
 # Review capture history tables
-save_path = path(interim_folder, "qc_capture_history.csv")
+save_path = path(interim_folder, "qc_capture_history_v1.csv")
 write_csv(capture_history, save_path)
+
+# --- For tags found dead on >1 occasion, include only the first occurence ---
+
+capture_history = fix_multiple_dead_occurences(capture_history)    
+
+# Manual Review 
+save_path = path(interim_folder, "qc_multiple_dead.csv")
+write_csv(capture_history, save_path)
+
+# Recalculate capture history and qc cols and Review
+capture_history = create_ch_col(capture_history) |> 
+  create_ch_qc_cols()
+save_path = path(interim_folder, "qc_capture_history_v2.csv")
+write_csv(capture_history, save_path)
+
+
+# --- For tags where found alive after dead, remove alive ---
+df = capture_history
+
+test = df |> 
+
 
 #TODO - Confirm that encounter histories were built correctly
 
@@ -191,3 +205,9 @@ write_csv(capture_history, save_path)
 # TODO Confirm that No individuals are found alive after being found dead
 # -----------------------------------------------------------------------------
 
+# =============================================================================
+# 6. Export for MARK analysis
+# =============================================================================
+
+save_path = path(pipeline_folder, "03_mark_input.csv")
+write_csv(capture_history, save_path)

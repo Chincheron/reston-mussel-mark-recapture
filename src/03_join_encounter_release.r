@@ -215,7 +215,8 @@ create_ch_col = function(df){
     function(encounter, status){
       if_else(
         df[[encounter]] == 1 &
-          df[[status]] == "Alive",
+          df[[status]] == "Alive" &
+          !is.na(df[[status]]),
         "1",
         "0"
       )
@@ -271,3 +272,75 @@ create_ch_col = function(df){
 
 }
 
+create_capture_history_table = function(df){
+  df = df |> 
+    mutate(value = 1) |> 
+    select(`Tag Number`, presumed_site, occasion, value, Status) |> 
+    distinct() |> 
+    pivot_wider(
+      names_from = occasion,
+      values_from = c(value, Status),
+      names_glue = "occasion_{occasion}{ifelse(.value == 'Status', '_status', '')}",
+      values_fill = list(value = 0)
+    )
+  
+  df = create_ch_col(df)
+  return(df)
+
+}
+
+
+create_ch_qc_cols = function(df){
+  df = df |> 
+    mutate(
+      dead_intervals = sapply(
+        gregexpr("1", dead_ch),
+        \(x) paste(x[x > 0], collapse = ",")
+      )
+    ) |> 
+    mutate(
+      more_than_one_dead = if_else(
+        nchar(dead_intervals) > 1, TRUE, FALSE 
+      )
+    ) |> 
+    mutate(
+      live_intervals = sapply(
+        gregexpr("1", live_ch),
+        \(x) paste(x[x > 0], collapse = ",")
+      )
+    )
+  return(df)
+
+}
+
+fix_multiple_dead_occurences = function(df){
+  status_cols = c(
+    'occasion_1_status',
+    'occasion_2_status',
+    'occasion_3_status',
+    'occasion_4_status',
+    'occasion_5_status',
+    'occasion_6_status',
+    'occasion_7_status',
+    'occasion_8_status'
+  )
+
+  df = df |> 
+    mutate(position_first_dead = str_sub(dead_intervals, 1, 1)) |> 
+    mutate(
+      across(status_cols, 
+        function(x){
+          if_else(
+            nchar(dead_intervals)>1 &
+            str_extract(cur_column(), "(?<=_)\\d+(?=_)") > position_first_dead &
+              x == "Dead",
+            NA,
+            x
+          )
+        }
+      )
+    )
+  
+  return(df)
+
+}
