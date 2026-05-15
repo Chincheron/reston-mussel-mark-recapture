@@ -185,7 +185,29 @@ create_ch_col = function(df){
 
   # Create live encounter ch
   # if occasion_x = 1 and occasion_x_status = 'Alive', then '1', else 0
-  df$live_ch = apply(capture_history[encounter_cols], 1, paste0, collapse = "" )
+  live_mat = map2(
+    encounter_cols[-1], # -1 is to remove occasion_0 to get matching pair lengths
+    status_cols,
+    function(encounter, status){
+      if_else(
+        df[[encounter]] == 1 &
+          df[[status]] == "Alive",
+        "1",
+        "0"
+      )
+    }
+  ) |> 
+    do.call(cbind, args = _)
+
+  df = df |> 
+    mutate(
+      live_ch = paste0(
+        occasion_0,
+        apply(live_mat, 1, paste0, collapse = "")
+      )
+    )
+
+  #df$live_ch = apply(capture_history[encounter_cols], 1, paste0, collapse = "" )
 
   #create dead encounter ch:
   # if occasion_x_status = 'Alive', then interval x = '0', if 'Dead', then '1'
