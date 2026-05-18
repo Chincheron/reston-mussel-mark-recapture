@@ -21,8 +21,9 @@ library(glue)
 
 global_paths = import("config.paths", convert = TRUE) 
 
-config_file = as.character(global_paths$CONFIG / 'config.yaml')
-config = yaml.load_file(config_file)
+config_file = as.character(global_paths$CONFIG / 'config.R')
+source(config_file)
+config = load_config()
 
 # Custom library
 custom_lib_1 = path(global_paths$SRC, '04_mark_analysis.r')
