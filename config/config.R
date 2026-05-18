@@ -6,11 +6,15 @@ library(here)
 
 load_config = function(){
 
-  #config_file = as.character(global_paths$CONFIG / 'config.yaml')
   config_file = path(here(), "config", "config.yaml")
   config = yaml.load_file(config_file)
 
-  config$sites$snakeden$sampling_occasions
+  # Add intervals_days to each site
+  config$sites <- map(config$sites, function(site) {
+    dates <- as.Date(map_chr(site$sampling_occasions, "date"))
+    site$intervals_days <- as.numeric(diff(dates))
+    return(site)
+  })
 
   return(config)
 }
