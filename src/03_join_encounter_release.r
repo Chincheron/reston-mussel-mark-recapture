@@ -124,7 +124,11 @@ fix_presumed_sites = function(df){
   ) |> 
   group_by(`Tag Number`) |> 
   mutate(
-    presumed_site = first(na.omit(site))
+    presumed_site = if(any(!is.na(site))){
+      first(na.omit(site))
+    } else {
+      presumed_site
+    }
   ) |> 
   ungroup()
   
