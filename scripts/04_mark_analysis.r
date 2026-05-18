@@ -69,21 +69,24 @@ site_input = split(mark_input, mark_input$presumed_site)
 # 3. Run Burnham Joint model in RMARK
 # =============================================================================
 
-#setup common analysis variables
-snakeden_time_interval = config$sites$snakeden$intervals_days
-glad_time_interval = config$sites$glade$intervals_days
+source(custom_lib_1)
+results = run_burnham_model_2("glade", mark_input, mark_obj_folder, config)
 
-snakeden_input = site_input$snakeden
-glade_input = site_input$glade
+
+
+# Run both sites
+sites = c("snakeden", "glade")
+for(site in sites){
+  run_burnham_model_2(site, mark_input, mark_obj_folder, config)
+
+} 
 
 #TODO incorrect number of intervals? Last recovery interval after  last sampling maybe?
+#TODO Goodness of fit testing (same model as live encounters model - which is?)
+#TODO determine how to fix parameters
+#TODO candidate model set
 
-mark(snakeden_input, model = "Burnham")
 
-mark(glade_input, model = "Burnham")
-
-
-analysis_name = analysis_name
 
 
 # Must create a environment then inject parameter definitions and assign other variables to be used (e.g. fixing pent to 0)
