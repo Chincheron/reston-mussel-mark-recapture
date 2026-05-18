@@ -190,17 +190,26 @@ write_csv(capture_history, save_path)
 
 
 # --- Check and remove tags where found alive after dead (remove alive) ---
+# Initial check of all alive after dead tags
 alive_after_dead  = check_alive_after_dead(capture_history)
 
 #Review
 save_path = path(interim_folder, "qc_alive_after_dead.csv")
 write_csv(alive_after_dead, save_path)
 
-# For > Alive occurences after Dead, Remove Dead occurrence 
+# For more than 1 Alive occurences after Dead, Remove Dead occurrence 
 source(custom_lib_3)
 capture_history = fix_multiple_alive_after_dead(capture_history)
 
+#Review
+alive_after_dead =check_alive_after_dead(capture_history)
+save_path = path(interim_folder, "qc_alive_after_dead_v2.csv")
+write_csv(alive_after_dead, save_path)
+
+
 # Remove any 'Alive' occurences after 'Dead'
+# Except for tag O014, which would result in no release occurences before death
+  # For this tag, remove the 'Dead' occurrence
 source(custom_lib_3)
 capture_history = fix_alive_after_dead(capture_history)
 

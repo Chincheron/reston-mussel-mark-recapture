@@ -401,6 +401,19 @@ fix_alive_after_dead = function(df){
   )
 
   df = df |> 
+    mutate(occasion_1_status = if_else(
+        `Tag Number` == "O014", 
+        NA,
+        occasion_1_status),
+      alive_after_dead = if_else(
+        `Tag Number` == "O014",
+        FALSE,
+        alive_after_dead
+      )
+    )
+  
+ 
+  df = df |> 
     mutate(
       across(status_cols, 
         function(x){
