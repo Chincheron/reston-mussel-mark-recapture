@@ -304,13 +304,15 @@ create_ch_qc_cols = function(df){
       )
     ) |> 
     mutate(
-      live_intervals = sapply(
+      live_occasions = sapply(
         gregexpr("1", live_ch),
         \(x) paste(x[x > 0], collapse = ",")
       )
     ) |> 
     mutate(position_first_dead = str_sub(dead_intervals, 1, 1)) |>
-    mutate(max_live_occ = as.numeric(str_sub(live_intervals, start = -1L, end = -1L)) - 1) |> 
+    # max/min of alive occasions minus 1 (because numbering starts with occasion 0
+    mutate(max_live_occ = as.numeric(str_sub(live_occasions, start = -1L, end = -1L)) - 1) |> 
+    mutate(min_live_occ = as.numeric(str_sub(live_occasions, start = 1L, end = 1L)) - 1) |>
     mutate(alive_after_dead =
       if_else(as.numeric(max_live_occ) < as.numeric(position_first_dead),
         FALSE,
@@ -403,6 +405,8 @@ fix_alive_after_dead = function(df){
       across(status_cols, 
         function(x){
           if_else(
+            # must have this as first condition or NA is returned when alive_after_dead is NA 
+            !is.na(alive_after_dead) & 
             alive_after_dead == TRUE &
             as.numeric(str_extract(cur_column(), "(?<=_)\\d+(?=_)")) == max_live_occ &
               x == "Alive",
