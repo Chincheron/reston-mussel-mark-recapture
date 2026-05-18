@@ -130,7 +130,10 @@ fix_presumed_sites = function(df){
       presumed_site
     }
   ) |> 
-  ungroup()
+  ungroup() |> 
+    mutate(
+      presumed_site = str_to_lower(presumed_site)
+    )
   
 
   return(df)
