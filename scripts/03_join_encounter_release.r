@@ -218,9 +218,11 @@ alive_after_dead = check_alive_after_dead(capture_history)
 save_path = path(interim_folder, "qc_alive_after_dead_confirm.csv")
 write_csv(alive_after_dead, save_path)
 
-# --- Check for never released tags ---
-
-
+# Recalculate capture history and qc cols and Review
+capture_history = create_ch_col(capture_history) |> 
+  create_ch_qc_cols()
+save_path = path(interim_folder, "qc_capture_history_v3.csv")
+write_csv(capture_history, save_path)
 
 #TODO - Confirm that encounter histories were built correctly
 
