@@ -19,11 +19,11 @@ library(glue)
 # Load project paths and config.yaml
 # -----------------------------------------------------------------------------
 
-global_paths = import("config.paths", convert = TRUE) 
+  global_paths = import("config.paths", convert = TRUE) 
 
-config_file = as.character(global_paths$CONFIG / 'config.R')
-source(config_file)
-config = load_config()
+  config_file = as.character(global_paths$CONFIG / 'config.R')
+  source(config_file)
+  config = load_config()
 
 # Custom library
 custom_lib_1 = path(global_paths$SRC, '04_mark_analysis.r')
@@ -56,6 +56,9 @@ mark_input_path = path(source_folder, "03_join_encounter_release", "03_mark_inpu
 load_cols = c("Tag Number", "presumed_site", "ch")
 mark_input = read_csv(mark_input_path, col_select = all_of(load_cols))
 
+
+#TODO - check NA values and misspellings of site names
+
 # Remove all 0 capture histories
 mark_input = mark_input |> 
   filter(ch != "000000000000000000")
@@ -66,10 +69,19 @@ site_input = split(mark_input, mark_input$presumed_site)
 # 3. Run Burnham Joint model in RMARK
 # =============================================================================
 
-summary(mark_input)
-test = mark(mark_input)
-  
-mark(mark_input, model = "Burnham")
+#setup common analysis variables
+snakeden_time_interval = config$sites$snakeden$intervals_days
+glad_time_interval = config$sites$glade$intervals_days
+
+snakeden_input = site_input$snakeden
+glade_input = site_input$glade
+
+#TODO incorrect number of intervals? Last recovery interval after  last sampling maybe?
+
+mark(snakeden_input, model = "Burnham")
+
+mark(glade_input, model = "Burnham")
+
 
 analysis_name = analysis_name
 
