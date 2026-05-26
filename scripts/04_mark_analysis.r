@@ -73,12 +73,12 @@ source(custom_lib_1)
 results = run_burnham_model_2("glade", mark_input, mark_obj_folder, config)
 
 
-
+results_list = list() 
 # Run both sites
 sites = c("snakeden", "glade")
 for(site in sites){
-  run_burnham_model_2(site, mark_input, mark_obj_folder, config)
-
+  site_results = run_burnham_model_2(site, mark_input, mark_obj_folder, config)
+  results_list[[site]] = site_results
 } 
 
 #TODO incorrect number of intervals? Last recovery interval after  last sampling maybe?
