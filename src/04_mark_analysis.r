@@ -23,10 +23,11 @@ run_burnham_model_2 = function(site, mark_input, object_folder, config){
   object_folder = path(object_folder, paste0(site, "_outputs"))
   dir_create(object_folder)
 
-  interval_days = config$sites[[site]]
-
+  interval_days = config$sites[[site]]$intervals_days
+  interval_days = append(interval_days, 1)
+  
   mark_results = with_dir(object_folder,
-    mark(mark_input, model = "Burnham")
+    mark(mark_input, model = "Burnham", time.intervals = interval_days)
   )
 
   return(mark_results)
