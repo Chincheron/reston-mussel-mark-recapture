@@ -25,10 +25,30 @@ run_burnham_model_2 = function(site, mark_input, object_folder, config){
 
   interval_days = config$sites[[site]]$intervals_days
   interval_days = append(interval_days, 1)
-  
-  mark_results = with_dir(object_folder,
-    mark(mark_input, model = "Burnham", time.intervals = interval_days)
+
+  burnham_process = process.data(
+    mark_input
+    , model = 'Burnham'
+    ,time.intervals = interval_days
   )
+
+  burnham_ddl = evalq(make.design.data(burnham_process)
+  #parameters=list(pent=pent.0)
+  #parameters=list(pent=list(pim.type="time")
+  #, N=list(pim.type="constant")
+  #), envir = model_env
+  )
+  
+  mark_results = with_dir(
+    object_folder,
+    mark(burnham_process, burnham_ddl)
+  )
+  
+
+
+  # mark_results = with_dir(object_folder,
+  #   mark(mark_input, model = "Burnham", time.intervals = interval_days)
+  # )
 
   return(mark_results)
 
