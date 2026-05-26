@@ -38,10 +38,18 @@ run_burnham_model_2 = function(site, mark_input, object_folder, config){
   #, N=list(pim.type="constant")
   #), envir = model_env
   )
+
+  # get value of last interval 
+  last_occasion = max(as.numeric(as.character(burnham_ddl$r$cohort)))
   
+  #Fix last r to zero due to no recapture period after last sampling
+  r.last.fixed=list(formula=~1, fixed=list(cohort=c(last_occasion),value=0))
+
   mark_results = with_dir(
     object_folder,
-    mark(burnham_process, burnham_ddl)
+    mark(burnham_process, ddl = burnham_ddl
+      , model.parameters = list(r = r.last.fixed)    
+    )
   )
   
 
