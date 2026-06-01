@@ -30,10 +30,15 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
   interval_days = config$sites[[site]]$intervals_days
   interval_days = append(interval_days, 1)
 
+  # issues with convergence for S(t) models
+  # Likely caused by daily survival rates being close to 1
+  # Rescale to monthly
+  interval_monthly = interval_days / 30.44 
+
   burnham_process = process.data(
     mark_input
     , model = 'Burnham'
-    ,time.intervals = interval_days
+    ,time.intervals = interval_monthly
   )
 
   burnham_ddl = evalq(make.design.data(burnham_process)
