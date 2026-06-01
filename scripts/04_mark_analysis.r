@@ -69,9 +69,37 @@ site_input = split(mark_input, mark_input$presumed_site)
 # 3. Run Burnham Joint model in RMARK
 # =============================================================================
 
-source(custom_lib_1)
-results = run_burnham_model_2("glade", mark_input, mark_obj_folder, config)
+# Define hypotheses to be tested for each model parameter
+# Used further down to construct a candidate model set of all possible combinations
+model_def = list(
+#phi
+S.dot=list(formula=~1),
+S.time = list(formula=~time),
+#p
+p.dot=list(formula=~1),
+p.time=list(formula=~time),
+#r
+r.dot=list(formula=~1),
+r.time = list(formula=~time),
+#F
+f.fixed = list(formula=~1, fixed = 1)
+)
 
+source(custom_lib_1)
+results = run_burnham_model_2("glade", mark_input, mark_obj_folder, model_def, config)
+results = run_burnham_model_2("snakeden", mark_input, mark_obj_folder, config)
+
+
+model_def$r.dot = append(
+  model_def$r.dot,
+  list(
+    fixed=list(
+      cohort=c(last_occasion),
+      value=0
+    )
+  )
+) 
+  
 
 results_list = list() 
 # Run both sites
@@ -81,10 +109,59 @@ for(site in sites){
   results_list[[site]] = site_results
 } 
 
-#TODO incorrect number of intervals? Last recovery interval after  last sampling maybe?
+#TODO adding last interval post sampling causes high survival for snakeden compared to 
+  # even intervals. Fixing last r to zero did not fix? How does last interval length affect?  
 #TODO Goodness of fit testing (same model as live encounters model - which is?)
-#TODO determine how to fix parameters
 #TODO candidate model set
+
+#TESTING function
+#Create processed dataframe for specific model
+ interval_days = config$sites$glade$intervals_days
+ interval_days = append(interval_days, 1)
+
+
+mark_input = site_input$glade
+burnham_process = process.data(mark_input, 
+  model = 'Burnham'
+  ,time.intervals = interval_days
+)
+
+burnham_ddl = evalq(make.design.data(burnham_process,
+  #parameters=list(pent=pent.0)
+  #parameters=list(pent=list(pim.type="time")
+  #, N=list(pim.type="constant")
+  #), envir = model_env
+  )
+)
+
+last_occasion = max(as.numeric(as.character(burnham_ddl$r$cohort)))
+
+r.last.fixed=list(formula=~1, fixed=list(cohort=c(last_occasion),value=0))
+
+# last_occasion = max(burnham_ddl$r$occ.cohort)
+# burnham_ddl$r$fix = NA
+# burnham_ddl$r$fix[burnham_ddl$r$occ.cohort == last_occasion] = 0
+
+f.fixed = list(formula=~1, fixed = 1)
+
+model_def = list(
+#S
+S.dot=list(formula=~1),
+S.time = list(formula=~time),
+#p
+p.dot=list(formula=~1),
+p.time=list(formula=~time),
+#r
+r.dot=list(formula=~1),
+r.time = list(formula=~time)
+)
+
+model_list = create.model.list("Burnham")
+
+result = mark(burnham_process, burnham_ddl
+  , model.parameters = list(r = r.last.fixed, F=f.fixed)
+  #, model.parameters = list(S = S.dot, p=p.dot, r = r.last.fixed, F=F.dot)
+)
 
 
 
@@ -95,32 +172,7 @@ list2env(model_def, envir = model_env)
 assign("pent.0", list(formula=~1, fixed=0), envir = model_env)
 ls(model_env)
 
-mark_input = input_file
-#setup common analysis variables
-time_interval = c(246,35, 29, 69) #TODO setup formula for calculating for each species automaically}
 
-begin_time = 2024 # must be a number and not a string
-
-
-  
-#Create processed dataframe for specific model
-popan_process = process.data(mark_input, 
-  model = 'POPAN'
-  ,begin.time = begin_time
-  ,time.intervals = time_interval
-  , groups = analy_groups
-)
-popan_process$group.covariates
-
-#Create design data for analysis
-#fix pent to 0 because we are following one release cohort with no new entries or births
-#pent.0 = list(formula=~1, fixed=0)
-popan_ddl = evalq(make.design.data(popan_process,
-  parameters=list(pent=pent.0)
-  #parameters=list(pent=list(pim.type="time")
-  #, N=list(pim.type="constant")
-  ), envir = model_env)
-  head(popan_ddl$pent)
 
 #Auto create all possible models to be run based on model list of individual parameters
   ls(model_env)

@@ -13,7 +13,7 @@ run_burnham_model = function(input, object_folder, config){
 
 }
 
-run_burnham_model_2 = function(site, mark_input, object_folder, config){
+run_burnham_model_2 = function(site, mark_input, object_folder, model_def, config){
 
   # Filter to site:
   mark_input = mark_input |> 
@@ -23,6 +23,10 @@ run_burnham_model_2 = function(site, mark_input, object_folder, config){
   object_folder = path(object_folder, paste0(site, "_outputs"))
   dir_create(object_folder)
 
+  # Must create a environment then inject parameter definitions and assign other variables to be used (e.g. fixing pent to 0)
+  model_env = new.env(parent=environment())
+  list2env(model_def, envir = model_env)
+  
   interval_days = config$sites[[site]]$intervals_days
   interval_days = append(interval_days, 1)
 
@@ -42,17 +46,24 @@ run_burnham_model_2 = function(site, mark_input, object_folder, config){
   # get value of last interval 
   last_occasion = max(as.numeric(as.character(burnham_ddl$r$cohort)))
   
-  #Fix last r to zero due to no recapture period after last sampling
-  r.last.fixed=list(formula=~1, fixed=list(cohort=c(last_occasion),value=0))
+  # #Fix last r to zero due to no recapture period after last sampling
+  # r.last.fixed=list(formula=~1, fixed=list(cohort=c(last_occasion),value=0))
 
-  #Fix all fidelity to 1 because dead and live recoveries are in same sampling area
-  f.fixed = list(formula=~1, fixed = 1)
+  # #Fix all fidelity to 1 because dead and live recoveries are in same sampling area
+  # f.fixed = list(formula=~1, fixed = 1)
 
-  mark_results = with_dir(
-    object_folder,
-    mark(burnham_process, ddl = burnham_ddl
-      , model.parameters = list(r = r.last.fixed, F = f.fixed)    
+  # Create model list
+  model_list = evalq(create.model.list("Burnham"), model_env)
+  print(model_list)
+
+  mark_results = evalq(
+    with_dir(
+      object_folder,
+      mark.wrapper(
+        model_list, data=burnham_process, ddl = burnham_ddl
+      )
     )
+    , envir =  model_env
   )
   
 
