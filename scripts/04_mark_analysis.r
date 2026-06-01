@@ -90,6 +90,12 @@ results = run_burnham_model_2("glade", mark_input, mark_obj_folder, model_def, c
 results = run_burnham_model_2("snakeden", mark_input, mark_obj_folder, config)
 
 
+
+test_list = model_def |> 
+  imap(
+
+  )
+
 model_def$r.dot = append(
   model_def$r.dot,
   list(

@@ -52,6 +52,22 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
   # #Fix all fidelity to 1 because dead and live recoveries are in same sampling area
   # f.fixed = list(formula=~1, fixed = 1)
 
+  # Update definitions for all r parameters so that last occasion is fixed to to 0
+  r_models = startsWith(names(model_def), "r.")
+  model_def[r_models] = lapply(
+    model_def[r_models], 
+    function(x)
+    append(
+      x,
+      list(
+        fixed=list(
+          cohort=c(last_occasion),
+          value=0
+        )
+      ) 
+    )
+  )
+
   # Create model list
   model_list = evalq(create.model.list("Burnham"), model_env)
   print(model_list)
