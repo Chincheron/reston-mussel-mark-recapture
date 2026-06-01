@@ -23,6 +23,9 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
   object_folder = path(object_folder, paste0(site, "_outputs"))
   dir_create(object_folder)
 
+  # Create folder for results Output
+  results_folder = path(object_folder, site)
+
   # Must create a environment then inject parameter definitions and assign other variables to be used (e.g. fixing pent to 0)
   model_env = new.env(parent=environment())
   list2env(model_def, envir = model_env)
@@ -92,6 +95,12 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
   # mark_results = with_dir(object_folder,
   #   mark(mark_input, model = "Burnham", time.intervals = interval_days)
   # )
+
+  # export for easier exploration of results
+  with_dir(object_folder, {
+        export.MARK(burnham_process, site,  mark_results
+      )
+      })
 
   return(mark_results)
 
