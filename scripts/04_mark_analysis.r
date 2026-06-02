@@ -99,3 +99,16 @@ for(site in sites){
 
 #TODO Goodness of fit testing (same model as live encounters model - which is?)
 
+# =============================================================================
+# 4. Export Results for Further Exploration
+# =============================================================================
+
+# Results_list contains results, inputs, model parameters, etc. for all models/analyses 
+# The structure is too complicated to export cleanly for review in Excel/etc. 
+# The entire R object is exported here for review of specific models/etc. in next step 
+
+# -----------------------------------------------------------------------------
+# Export to pipeline folder 
+# ----------------------------------------------------------------------------- 
+mark_results_path = path(pipeline_folder, '04_mark_results.rds')
+saveRDS(results_list, mark_results_path, ascii = TRUE)
