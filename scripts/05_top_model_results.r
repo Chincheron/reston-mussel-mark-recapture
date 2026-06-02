@@ -13,6 +13,7 @@ library(RMark)
 library(tidyverse)
 library(dplyr)
 library(readxl)
+library(writexl)
 library(glue)
 
 # -----------------------------------------------------------------------------
@@ -76,8 +77,29 @@ write_csv(model_comparison_glade, model_file_glade)
 analysis_names <- names(results_list)
 
 # Create dataframe with parameter estimates of from the top model of each analysis
-source(custom_lib_1)
 top_model_results <- purrr::map_dfr(
   analysis_names,
   ~ extract_top_model_results(results_list, .x)
 )
+
+# Final processing of top model results
+# e.g., standardize labels, add initial release numbers, convert daily to annual survival
+#   , create estimates for 'combined' facility
+source(custom_lib_1)
+top_model_results = process_model_results(top_model_results)
+
+# =============================================================================
+# 3. Export top model results 
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Export to data folder 
+# ----------------------------------------------------------------------------- 
+
+# Export top model results to file for manual review/use
+data_save_path = path(interim_folder, '05_top_model_results.xlsx')
+write_xlsx(top_model_results, data_save_path)
+
+# Export R object for later use
+data_objects_path = path(interim_folder, '05_top_model_results.rds')
+saveRDS(results_list, data_objects_path, ascii = TRUE)
