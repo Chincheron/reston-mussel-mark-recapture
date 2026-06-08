@@ -87,29 +87,16 @@ data = data |>
       )
     )
 
-# # add initial release numbers of uniquely tagged individuals
-# #number of mussels released by species
-# release_summary_path = path(global_paths$DATA_RAW, 'release_summary.xlsx')
-# release_summary = read_excel(release_summary_path) |> 
-#   select(species, facility, total_release, total_unique_tag)
-# data = data |>
-#   left_join(
-#     release_summary |> 
-#       rename(total_unique_tag_release = total_unique_tag),
-#     by = c('facility', 'species')
-#   ) |> 
-#   mutate(
-#     perc_of_initial = case_when(
-#       Parameter == "N_derived" ~ estimate / total_unique_tag_release
-#     ),
-#     perc_of_initial_lcl = case_when(
-#       Parameter == "N_derived" ~ lcl / total_unique_tag_release
-#     ),
-#     perc_of_initial_ucl = case_when(
-#       Parameter == "N_derived" ~ ucl / total_unique_tag_release
-#     )
-#   )
-
+  # add initial release numbers of uniquely tagged individuals by site
+  # number of mussels released by site
+  data = data |>
+    mutate(
+      total_release = case_when(
+        site == "snakeden" ~ config$sites$snakeden$initial_release,
+        site == "glade" ~ config$sites$glade$initial_release
+      )
+    ) 
+  
 # convert monthly survival to annual survival
 data = data |> 
   mutate(
@@ -127,6 +114,55 @@ data = data |>
     )
   )
 
+  
+  # calculate abundance on each occasion based on estimated Survival
+  interval_lookup <- imap_dfr(config$sites, \(site_cfg, site_name) {
+    tibble(
+      site = site_name,
+      occasion_index = seq_along(site_cfg$intervals_days),
+      interval_days = site_cfg$intervals_days
+    )
+  })
+  print(interval_lookup)
+  data <- data |>
+  mutate(
+    occasion_index = readr::parse_number(Occasion)
+  )
+  data <- data |>
+  left_join(
+    interval_lookup,
+    by = c("site", "occasion_index")
+  )
+  data <- data |>
+  mutate(
+    occasion_survival = if_else(
+      Parameter == "S",
+      estimate^(interval_days / 30.44),
+      estimate
+    )
+  )
+    # mutate(
+    #   occasion_survival = case_when(
+    #     Parameter == "S" ~ estimate
+    #   ) 
+    # )
+  
+  abundance = data |> 
+  filter(Parameter == "S") %>%
+  mutate(
+    interval_num = as.numeric(str_extract(Occasion, "\\d+"))
+  ) %>%
+  arrange(site, interval_num) %>%
+  group_by(site) %>%
+  mutate(
+    estimate = total_release * cumprod(estimate),
+    Parameter = "Abundance"
+  ) %>%
+  ungroup() %>%
+  select(-interval_num)
+
+
+  data = bind_rows(data, abundance)
 return(data)
 
 }

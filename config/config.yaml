@@ -3,6 +3,7 @@
 sites:
   snakeden:
     name: "Snakeden Run"
+    initial_release: 1578
     sampling_occasions:
       - { occasion: 0, date: "2023-07-27" }
       - { occasion: 1, date: "2024-07-25" }
@@ -16,6 +17,7 @@ sites:
 
   glade:
     name: "Glade Run"
+    initial_release: 1224
     sampling_occasions:
       - { occasion: 0, date: "2023-07-26" }
       - { occasion: 1, date: "2024-07-25" }
