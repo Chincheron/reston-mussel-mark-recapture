@@ -82,7 +82,7 @@ p.time=list(formula=~time),
 r.dot=list(formula=~1),
 r.time = list(formula=~time),
 #F
-f.fixed = list(formula=~1, fixed = 1)
+F.fixed = list(formula=~1, fixed = 1)
 )
 
 #Testing
