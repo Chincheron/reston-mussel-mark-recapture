@@ -53,7 +53,7 @@ extract_top_model_results = function(results_list, analysis) {
   p_model = if (p_model == "1") "dot" else p_model
   r_model = if (r_model == "1") "dot" else r_model
 
-  top_model_name = paste0("S.", s_model, ".p.", p_model, ".r.", r_model)
+  top_model_name = paste0("S.", s_model, ".p.", p_model, ".r.", r_model, ".F.fixed")
   
 
   #Set top model name to pull results from marklist object

@@ -98,7 +98,7 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
 
   # export for easier exploration of results
   with_dir(object_folder, {
-        export.MARK(burnham_process, site,  mark_results
+        export.MARK(burnham_process, site,  mark_results, replace = TRUE
       )
       })
 
