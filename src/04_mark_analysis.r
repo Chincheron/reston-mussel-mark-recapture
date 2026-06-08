@@ -47,6 +47,13 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
   #), envir = model_env
   )
 
+  #burnham_ddl$S$S_group=0
+  #burnham_ddl$S$S_group[burnham_ddl$S$time==1] = 1
+  burnham_ddl = add.design.data(burnham_process, burnham_ddl, 
+    parameter = "S", type = "time", bins = c(0, 11, 30), name = "ageclass"
+  )
+
+
   # get value of last interval 
   last_occasion = max(as.numeric(as.character(burnham_ddl$r$cohort)))
   

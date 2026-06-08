@@ -75,6 +75,7 @@ model_def = list(
 #phi
 S.dot=list(formula=~1),
 S.time = list(formula=~time),
+S.ageclass=list(formula=~ageclass),
 #p
 p.dot=list(formula=~1),
 p.time=list(formula=~time),
