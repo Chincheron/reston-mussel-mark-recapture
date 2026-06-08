@@ -137,7 +137,7 @@ data = data |>
   mutate(
     occasion_survival = if_else(
       Parameter == "S",
-      estimate^(interval_days / 30.44),
+      estimate^(interval_days/365.25),
       estimate
     )
   )
