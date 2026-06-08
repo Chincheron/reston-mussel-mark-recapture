@@ -43,7 +43,8 @@ get_global_fig_config = function() {
     abundance_release = 'abundance_total_release'
   ),
   category_order = list(
-    sampling_occasion = c('Release', 'MR 1', 'MR 2', 'MR 3', 'MR 4'),
+    sampling_occasion = c('Release', 'Occasion 1', 'Occasion 2', 'Occasion 3', 'Occasion 4', 
+      'Occasion 5', 'Occasion 6', 'Occasion 7', 'Occasion 8'),
     sampling_occasion_s = c('Interval 1',
       'Interval 2', 
       'Interval 3', 

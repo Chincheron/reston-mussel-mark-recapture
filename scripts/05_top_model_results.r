@@ -166,7 +166,7 @@ abundance_plot_config <- list(
   y_variance_lower = cm$lower_ci,
   x_factor = cm$sampling_occasion,
   x_factor_label = all_plot_config$labels$Occasion,
-  x_order = all_plot_config$category_order$sampling_occasion_s,
+  x_order = all_plot_config$category_order$sampling_occasion,
   grouping = cm$site,
   grouping_label = all_plot_config$labels$site,
   grouping_order = c('glade', 'snakeden'),
