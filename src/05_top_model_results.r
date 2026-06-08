@@ -166,9 +166,20 @@ data = data |>
   ) |> 
   ungroup() %>%
   select(-interval_num)
+ 
+  # Create initial occasion abundance rows for each site
+  initial_abundance = tibble(
+  site = c("snakeden", "glade"),
+  Occasion = "Release",
+  Parameter = "Abundance",
+  estimate = c(
+    config$sites$snakeden$initial_release,
+    config$sites$glade$initial_release
+  )
+)
 
 
-  data = bind_rows(data, abundance)
+  data = bind_rows(data, abundance, initial_abundance)
 return(data)
 
 }
