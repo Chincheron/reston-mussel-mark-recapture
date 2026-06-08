@@ -157,7 +157,13 @@ data = data |>
   mutate(
     estimate = total_release * cumprod(estimate),
     Parameter = "Abundance"
-  ) %>%
+  ) |> 
+  mutate(
+    Occasion = paste(
+      "Occasion", 
+      as.numeric(str_extract(Occasion, "\\d+")) + 1
+    )
+  ) |> 
   ungroup() %>%
   select(-interval_num)
 
