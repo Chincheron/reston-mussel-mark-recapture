@@ -26,10 +26,6 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
   # Create folder for results Output
   results_folder = path(object_folder, site)
 
-  # Must create a environment then inject parameter definitions and assign other variables to be used (e.g. fixing pent to 0)
-  model_env = new.env(parent=environment())
-  list2env(model_def, envir = model_env)
-  
   interval_days = config$sites[[site]]$intervals_days
   interval_days = append(interval_days, 1)
 
@@ -75,6 +71,10 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
       ) 
     )
   )
+
+  # Must create a environment then inject parameter definitions and assign other variables to be used (e.g. fixing pent to 0)
+  model_env = new.env(parent=environment())
+  list2env(model_def, envir = model_env)
 
   # Create model list
   model_list = evalq(create.model.list("Burnham"), model_env)
