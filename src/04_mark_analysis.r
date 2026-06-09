@@ -49,14 +49,16 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
 
   #burnham_ddl$S$S_group=0
   #burnham_ddl$S$S_group[burnham_ddl$S$time==1] = 1
+  interval_bins = c(0, 12, 16, 24, 27, 30)
+  occasion_bins = c(0, 24, 30)
   burnham_ddl = add.design.data(burnham_process, burnham_ddl, 
-    parameter = "S", type = "time", bins = c(0, 12, 16, 24, 27, 30), name = "year"
+    parameter = "S", type = "time", bins = interval_bins , name = "year"
   )
   burnham_ddl = add.design.data(burnham_process, burnham_ddl, 
-    parameter = "r", type = "time", bins = c(0, 12, 16, 24, 27, 30), name = "year"
+    parameter = "r", type = "time", bins = interval_bins, name = "year"
   )
   burnham_ddl = add.design.data(burnham_process, burnham_ddl, 
-    parameter = "p", type = "time", bins = c(0, 12, 16, 24, 27, 30), name = "year"
+    parameter = "p", type = "time", bins = occasion_bins, name = "year"
   )
 
 
