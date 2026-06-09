@@ -86,6 +86,234 @@ data = data |>
       TRUE ~ Occasion
       )
     )
+  
+  # Fill out survival for all intervals when full time model not used
+  occasions = unique(data$Occasion)
+
+  if (
+    "Interval 1" %in% occasions &&
+      !any(occasions %in% paste("Interval", 2:8))
+  ) {
+    new_rows <- bind_rows(
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 2"
+      ),
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 3"
+      ),
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 4"
+      ),
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 5"
+      ),
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 6"
+      ),
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 7"
+      ),
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 8"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 2"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 3"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 4"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 5"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 6"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 7"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 1"
+      ) |>
+      mutate(
+        Occasion = "Interval 8"
+      ),
+    )
+  } else if (
+    !any(occasions %in% c(
+      "Interval 3",
+      "Interval 4",
+      "Interval 7",
+      "Interval 8"
+    ))
+  ) {
+    new_rows <- bind_rows(
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 2"
+      ) |>
+      mutate(
+        Occasion = "Interval 3"
+      ),
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 2"
+      ) |>
+      mutate(
+        Occasion = "Interval 4"
+      ),
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 6"
+      ) |>
+      mutate(
+        Occasion = "Interval 7"
+      ),
+      data |>
+      filter(
+        site == "snakeden",
+        Parameter == "S",
+        Occasion == "Interval 6"
+      ) |>
+      mutate(
+        Occasion = "Interval 8"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 2"
+      ) |>
+      mutate(
+        Occasion = "Interval 3"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 2"
+      ) |>
+      mutate(
+        Occasion = "Interval 4"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 6"
+      ) |>
+      mutate(
+        Occasion = "Interval 7"
+      ),
+      data |>
+      filter(
+        site == "glade",
+        Parameter == "S",
+        Occasion == "Interval 6"
+      ) |>
+      mutate(
+        Occasion = "Interval 8"
+      ),
+    )
+  }
+  
+  
+
+data <- bind_rows(data, new_rows) |> 
+  mutate(
+    occasion_index = parse_number(Occasion)
+  ) |> 
+  arrange(site, Parameter, occasion_index) |> 
+  select(-occasion_index)
 
   # add initial release numbers of uniquely tagged individuals by site
   # number of mussels released by site
