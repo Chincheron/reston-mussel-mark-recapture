@@ -135,6 +135,17 @@ fix_presumed_sites = function(df){
       presumed_site = str_to_lower(presumed_site)
     )
   
+  # List of mussels removed for Chester experiment from Glade:
+  # One doesn't match presumed site of snakeden
+  # Change this one to glade
+  df = df |> 
+    mutate(presumed_site = ifelse(
+      `Tag Number` == "B526",
+      "glade",
+      presumed_site
+      )
+    )
+  
 
   return(df)
 }
