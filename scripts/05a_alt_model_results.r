@@ -37,7 +37,7 @@ source(custom_lib_2)
 # -----------------------------------------------------------------------------
 
 # Set directories
-SCRIPT_NAME = '05_top_model_results'
+SCRIPT_NAME = '05a_alt_model_results'
 source_folder = path(global_paths$DATA_PIPELINE)
 pipeline_folder = path(global_paths$DATA_PIPELINE, SCRIPT_NAME)
 interim_folder = path(global_paths$DATA_INTERIM, SCRIPT_NAME)
@@ -79,19 +79,19 @@ write_csv(model_comparison_glade, model_file_glade)
 # Extract results from the top model
 # -----------------------------------------------------------------------------
 
-analysis_names <- names(results_list)
+snakeden_selected_model = extract_rmark_model_results(results_list, "snakeden", 
+  "S.dot.p.year.r.year.F.fixed")
 
-# Create dataframe with parameter estimates of from the top model of each analysis
-top_model_results <- purrr::map_dfr(
-  analysis_names,
-  ~ extract_top_model_results(results_list, .x)
-)
+glade_selected_model = extract_rmark_model_results(results_list, "glade", 
+  "S.dot.p.year.r.year.F.fixed")
+
+selected_model_results = bind_rows(snakeden_selected_model, glade_selected_model)
 
 # Final processing of top model results
 # e.g., standardize labels, add initial release numbers, convert daily to annual survival
 #   , create estimates for 'combined' facility
 source(custom_lib_1)
-top_model_results = process_model_results(top_model_results)
+selected_model_results = process_model_results(selected_model_results)
 
 #TODO calculate derived population size
 
@@ -104,11 +104,11 @@ top_model_results = process_model_results(top_model_results)
 # ----------------------------------------------------------------------------- 
 
 # Export top model results to file for manual review/use
-data_save_path = path(interim_folder, '05_top_model_results.xlsx')
-write_xlsx(top_model_results, data_save_path)
+data_save_path = path(interim_folder, '05_selected_model_results.xlsx')
+write_xlsx(selected_model_results, data_save_path)
 
 # Export R object for later use
-data_objects_path = path(interim_folder, '05_top_model_results.rds')
+data_objects_path = path(interim_folder, '05_selected_model_results.rds')
 saveRDS(results_list, data_objects_path, ascii = TRUE)
 
 # =============================================================================
@@ -156,7 +156,7 @@ survival_plot_config <- list(
 config_override = list(
   save_file_name = 'Figure_1_survival_top_model.jpg' 
 )
-build_base_plot(top_model_results, all_plot_config, survival_plot_config, config_override)
+build_base_plot(selected_model_results, all_plot_config, survival_plot_config, config_override)
 
 # Define initial settings for Abundance group of figures
 abundance_plot_config <- list(
@@ -188,5 +188,5 @@ source(custom_lib_1)
 config_override = list(
   save_file_name = 'Figure_2_abundance_top_model.jpg' 
 )
-build_base_plot(top_model_results, all_plot_config, abundance_plot_config, config_override)
+build_base_plot(selected_model_results, all_plot_config, abundance_plot_config, config_override)
 

@@ -39,7 +39,7 @@
             4) C167 - Lengths are quite different. Kept shorter length based on other occasions
                 * **Kept shorter length (74.4)**
             5) C891 - Dead with no length. Recorded as two different locations (riffle 3 and pool 3) but unclear where it was actually found
-                * **Pick one or mark as unknown?** #TODO
+                * **Kept Pool 3** #TODO
             6) O062 - Similar lengths. Went with smaller based on lengths at other occasions
                 * **Kept shorter length (90.8)**
 4) Validate data types and formats

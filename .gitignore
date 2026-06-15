@@ -25,6 +25,8 @@ results/tables/*
 results/figures/.gitkeep
 results/tables/.gitkeep
 
+# Temporary open excel files
+~$*
 
 # OS
 .DS_Store

@@ -82,7 +82,7 @@ p.dot=list(formula=~1),
 p.year=list(formula=~year),
 #r
 r.dot=list(formula=~1),
-r.time = list(formula=~time),
+#r.time = list(formula=~time),
 r.year=list(formula=~year),
 #F
 F.fixed = list(formula=~1, fixed = 1)
