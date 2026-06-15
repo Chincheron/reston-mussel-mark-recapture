@@ -368,7 +368,17 @@ data = data |>
     occasion_survival = if_else(
       Parameter == "S",
       estimate^(interval_days/365.25),
-      estimate
+      0
+    ),
+    occasion_survival_lcl = if_else(
+      Parameter == "S",
+      s_lcl^(interval_days/365.25),
+      0
+    ),
+    occasion_survival_ucl = if_else(
+      Parameter == "S",
+      s_ucl^(interval_days/365.25),
+      0
     )
   )
     # mutate(
@@ -385,15 +395,17 @@ data = data |>
   arrange(site, interval_num) %>%
   group_by(site) %>%
   mutate(
-    estimate = total_release * cumprod(estimate),
-    Parameter = "Abundance"
+    abundance = total_release * cumprod(occasion_survival),
+    Parameter = "Abundance",
+    abundance_lcl = total_release * cumprod(occasion_survival_lcl),
+    abundance_ucl = total_release * cumprod(occasion_survival_ucl)
   ) |> 
   mutate(
     Occasion = paste(
       "Occasion", 
       as.numeric(str_extract(Occasion, "\\d+")) + 1
     )
-  ) |> 
+  ) |>  
   ungroup() %>%
   select(-interval_num)
  
