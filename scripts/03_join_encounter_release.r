@@ -231,13 +231,8 @@ write_csv(capture_history, save_path)
 capture_history = remove_experiment_mussels(capture_history, config)
 
 # --- Update ch for mussels found by Brennan and Donya ---
-test = capture_history |> 
-  filter(`Tag Number` %in% config$b_and_d_removed_mussels$interval_2)
+capture_history = remove_b_and_d_mussels(capture_history, config)
 
-source(custom_lib_3)
-df = remove_b_and_d_mussels(capture_history, config)
-test = df |> 
-  filter(`Tag Number` %in% config$b_and_d_removed_mussels$interval_2)
 
 #TODO - Confirm that encounter histories were built correctly
 

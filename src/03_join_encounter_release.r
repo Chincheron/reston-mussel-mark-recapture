@@ -480,10 +480,19 @@ remove_b_and_d_mussels = function(df, config) {
   interval_2_remove = config$b_and_d_removed_mussels$interval_2
   interval_3_remove = config$b_and_d_removed_mussels$interval_3
   unknown_interval_remove = config$b_and_d_removed_mussels$unknown_interval
- 
+  all_intervals = c(interval_2_remove, interval_3_remove, unknown_interval_remove)
+  
   # Update mismatched sites (all shoulde be snakeden)
+  df = df |> 
+    mutate(
+      presumed_site = "snakeden"
+    )
 
-  #function for fixing interval_2 ch
+  # --- Update ch for each group ---
+  # some of interval 2 mussels were also found 'Alive' on later occasions at snakeden
+  # Assumed that 'dead' b&d recoveries were accurate 
+  
+  # Function for fixing interval_2 ch
   fix_interval_2 = function(x) {
     paste0(
       "10",
@@ -493,14 +502,13 @@ remove_b_and_d_mussels = function(df, config) {
     )
   }
 
-  # Update ch for each group
-  # Notes:
-  # some of interval 2 mussels were also found 'Alive' on later occasions at snakeden
-  # Assumed that 'dead' b&d recoveries were accurate 
   df = df |> 
     mutate(
       ch = case_when(
         `Tag Number`%in% interval_2_remove ~ fix_interval_2(ch),
+        `Tag Number`%in% interval_3_remove ~ "100001000000000000",
+        # Only know for sure that these died in 2024, so coded dead for 5th interval
+        `Tag Number`%in% unknown_interval_remove ~ "100000000100000000",
         .default = ch
       )
     )
