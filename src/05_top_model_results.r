@@ -473,7 +473,8 @@ build_base_plot = function(data, global_config, family_config, figure_config = l
     caption = config$caption
   ) +
   scale_fill_manual(
-    values = global_config$palettes[[config$grouping_palette]]
+    values = global_config$palettes[[config$grouping_palette]],
+    labels = config$grouping_order_label
   ) + 
   global_config$theme
   
@@ -510,6 +511,8 @@ build_base_plot = function(data, global_config, family_config, figure_config = l
     } else {
   }
 
+  p = p + 
+    scale_x_discrete(labels = config$x_order_label)
 
   ggsave(
   filename =  config$save_file_name,

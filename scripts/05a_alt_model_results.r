@@ -137,9 +137,11 @@ survival_plot_config <- list(
   x_factor = cm$sampling_occasion,
   x_factor_label = all_plot_config$labels$Occasion,
   x_order = all_plot_config$category_order$sampling_occasion_s,
+  x_order_label = all_plot_config$category_labels$sampling_occasion_s,
   grouping = cm$site,
   grouping_label = all_plot_config$labels$site,
   grouping_order = c('glade', 'snakeden'),
+  grouping_order_label = all_plot_config$category_labels$grouping_labels,
   grouping_palette = "site_level",
   #NULL if 0 facets, 1 if single. If 2, then first will be rows and second columns
   #facet_vars = c(cm$species),
@@ -154,8 +156,10 @@ survival_plot_config <- list(
 
 # --- Survival ---
 config_override = list(
-  save_file_name = 'Figure_1_survival_top_model.jpg' 
+  save_file_name = 'Figure_1_survival_top_model.jpg',
+    x_factor_label = "Interval"
 )
+source(custom_lib_1)
 build_base_plot(selected_model_results, all_plot_config, survival_plot_config, config_override)
 
 # Define initial settings for Abundance group of figures
@@ -168,9 +172,11 @@ abundance_plot_config <- list(
   x_factor = cm$sampling_occasion,
   x_factor_label = all_plot_config$labels$Occasion,
   x_order = all_plot_config$category_order$sampling_occasion,
+  x_order_label = all_plot_config$category_labels$sampling_occasion,
   grouping = cm$site,
   grouping_label = all_plot_config$labels$site,
   grouping_order = c('glade', 'snakeden'),
+  grouping_order_label = all_plot_config$category_labels$grouping_labels,
   grouping_palette = "site_level",
   #NULL if 0 facets, 1 if single. If 2, then first will be rows and second columns
   #facet_vars = c(cm$species),

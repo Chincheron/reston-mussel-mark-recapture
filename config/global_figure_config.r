@@ -43,8 +43,8 @@ get_global_fig_config = function() {
     abundance_release = 'abundance_total_release'
   ),
   category_order = list(
-    sampling_occasion = c('Release', 'Occasion 1', 'Occasion 2', 'Occasion 3', 'Occasion 4', 
-      'Occasion 5', 'Occasion 6', 'Occasion 7', 'Occasion 8'),
+    sampling_occasion = c('Release', 'Occasion 2', 'Occasion 3', 'Occasion 4', 
+      'Occasion 5', 'Occasion 6', 'Occasion 7', 'Occasion 8', 'Occasion 9'),
     sampling_occasion_s = c('Interval 1',
       'Interval 2', 
       'Interval 3', 
@@ -56,6 +56,34 @@ get_global_fig_config = function() {
       'Interval 9'
     ),
     reduced_model_order = c('top', 'reduced_from_top')
+  ),
+  category_labels = list(
+    grouping_order_labels = c(
+      glade = "Glade",
+      snakeden = "Snakeden"
+    ),
+    sampling_occasion_s = c(
+      'Interval 1' = "1",
+      'Interval 2' = "2", 
+      'Interval 3' = "3", 
+      'Interval 4' = "4",
+      'Interval 5' = "5",
+      'Interval 6' = "6",
+      'Interval 7' = "7",
+      'Interval 8' = "8",
+      'Interval 9' = "9"
+    ),
+    sampling_occasion = c(
+      'Release' = 'Release',
+      'Occasion 2' = "2", 
+      'Occasion 3' = "3", 
+      'Occasion 4' = "4", 
+      'Occasion 5' = "5", 
+      'Occasion 6' = "6", 
+      'Occasion 7' = "7", 
+      'Occasion 8' = "8",
+      'Occasion 9' = "9"
+    )
   ),
   theme = theme_bw(base_size = 12)
 )

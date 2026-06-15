@@ -74,7 +74,7 @@ site_input = split(mark_input, mark_input$presumed_site)
 model_def = list(
 #phi
 S.dot=list(formula=~1),
-#S.time = list(formula=~time),
+S.time = list(formula=~time),
 S.year=list(formula=~year),
 #p
 p.dot=list(formula=~1),
