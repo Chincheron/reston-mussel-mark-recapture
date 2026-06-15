@@ -475,3 +475,35 @@ remove_experiment_mussels = function(df, config) {
 
   return(df)
 }
+
+remove_b_and_d_mussels = function(df, config) {
+  interval_2_remove = config$b_and_d_removed_mussels$interval_2
+  interval_3_remove = config$b_and_d_removed_mussels$interval_3
+  unknown_interval_remove = config$b_and_d_removed_mussels$unknown_interval
+ 
+  # Update mismatched sites (all shoulde be snakeden)
+
+  #function for fixing interval_2 ch
+  fix_interval_2 = function(x) {
+    paste0(
+      "10",
+      substr(x, 3, 3),
+      "1",
+      strrep("0", nchar(x) - 4)
+    )
+  }
+
+  # Update ch for each group
+  # Notes:
+  # some of interval 2 mussels were also found 'Alive' on later occasions at snakeden
+  # Assumed that 'dead' b&d recoveries were accurate 
+  df = df |> 
+    mutate(
+      ch = case_when(
+        `Tag Number`%in% interval_2_remove ~ fix_interval_2(ch),
+        .default = ch
+      )
+    )
+
+  return(df)
+}

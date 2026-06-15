@@ -51,6 +51,10 @@ sheet_ranges:
     - { occasion: 8, sheet: "2025 Glade MR", range: "W4:AB271",  expected_rows: 267 }
 
 # Removed mussels for chester experiment
+# source: 
+# workbook: 2024 and 2025 MR Summary - 1.xlsx
+# sheet: 2024 Glade MR
+# range: AR:AX
 removed_mussels_alive:
   - C700
   - B080
@@ -84,5 +88,42 @@ removed_mussels_alive:
   - C311
 removed_mussels_dead:
   - D013
+
+# Removed mussels by Brennan and Donya 
+# source: 
+# workbook: 2024 and 2025 MR Summary - 1.xlsx
+# sheet: 2024 Snakeden MR
+# range: AW:BP
+b_and_d_removed_mussels:
+  interval_2:
+    - C630
+    - B071
+    - B735
+    - C213
+    - D091
+    - B611
+    - B476
+    - C147
+    - C876
+    - D242
+    - c213
+    - C635
+    - C366
+    - C613
+    - B978
+    - B560
+    - D125
+  interval_3:
+    - C903
+    - B891
+    - D619
+    - D045
+    - C825
+    - C217
+  unknown_interval:
+    - D299
+    - C006
+
+
 
 
