@@ -306,14 +306,16 @@ data = data |>
     )
   }
   
-  
+  if (exists("new_rows")) {
+    data = bind_rows(data, new_rows)
+  } 
 
-data <- bind_rows(data, new_rows) |> 
-  mutate(
-    occasion_index = parse_number(Occasion)
-  ) |> 
-  arrange(site, Parameter, occasion_index) |> 
-  select(-occasion_index)
+  data <- data |> 
+    mutate(
+      occasion_index = parse_number(Occasion)
+    ) |> 
+    arrange(site, Parameter, occasion_index) |> 
+    select(-occasion_index)
 
   # add initial release numbers of uniquely tagged individuals by site
   # number of mussels released by site

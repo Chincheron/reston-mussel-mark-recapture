@@ -485,7 +485,10 @@ remove_b_and_d_mussels = function(df, config) {
   # Update mismatched sites (all shoulde be snakeden)
   df = df |> 
     mutate(
-      presumed_site = "snakeden"
+      presumed_site = case_when(
+        `Tag Number`%in% all_intervals ~ "snakeden",
+        .default = presumed_site
+      )
     )
 
   # --- Update ch for each group ---
@@ -514,4 +517,36 @@ remove_b_and_d_mussels = function(df, config) {
     )
 
   return(df)
+}
+
+remove_experiment_mussels_2 = function(df, config){
+  exp_rem = config$experiment_removal
+  glade_remove_all = exp_rem$glade_experiment_removal
+  
+  # Remove already dealt with glade removals from main data
+  glade_remove = glade_remove_all[
+    !glade_remove_all %in% config$removed_mussels_alive
+  ]
+
+  snakeden_remove = exp_rem$snakeden_experiment_removal
+
+  df = df |> 
+    mutate(
+      ch = case_when(
+        `Tag Number` %in% glade_remove ~ "101100000000000000",
+        `Tag Number` %in% snakeden_remove ~ "101100000000000000",
+        .default = ch
+      ),
+      presumed_site = case_when(
+          `Tag Number` %in% glade_remove ~ "glade",
+          `Tag Number` %in% snakeden_remove ~ "snakeden",
+          .default = presumed_site
+        )
+      )
+    
+  
+  return(df)
+
+
+
 }

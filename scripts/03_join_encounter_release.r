@@ -233,6 +233,9 @@ capture_history = remove_experiment_mussels(capture_history, config)
 # --- Update ch for mussels found by Brennan and Donya ---
 capture_history = remove_b_and_d_mussels(capture_history, config)
 
+# --- Update ch for additional mussels removed for experiments ---
+# as found in Sacrificed & Random Dead Mussels 2023-2025.xlsx
+capture_history = remove_experiment_mussels_2(capture_history, config)
 
 #TODO - Confirm that encounter histories were built correctly
 
