@@ -544,9 +544,46 @@ remove_experiment_mussels_2 = function(df, config){
         )
       )
     
-  
   return(df)
-
-
-
 }
+
+remove_unknown_removals = function(df, config){
+  interval_2_remove = config$unknown_removal$interval_2
+  interval_3_remove = config$unknown_removal$interval_3
+  interval_4_remove = config$unknown_removal$interval_4
+  all_intervals = c(interval_2_remove, interval_3_remove, interval_4_remove)
+  
+  # Update mismatched sites (all should be snakeden)
+  df = df |> 
+    mutate(
+      presumed_site = case_when(
+        `Tag Number`%in% all_intervals ~ "snakeden",
+        .default = presumed_site
+      )
+    )
+
+  # --- Update ch for each group ---
+    # Function for fixing interval_2 ch
+  fix_interval_3 = function(x) {
+    paste0(
+      "10",
+      substr(x, 3, 3),
+      "0",
+      substr(x, 5, 5),
+      "1",
+      strrep("0", nchar(x) - 6)
+    )
+
+  }
+  df = df |> 
+    mutate(
+      ch = case_when(
+        `Tag Number`%in% interval_2_remove ~ "100100000000000000",
+        `Tag Number`%in% interval_3_remove ~ fix_interval_3(ch),
+        `Tag Number`%in% interval_4_remove ~ "100000010000000000",
+        .default = ch
+      )
+    )
+
+  return(df)
+  }

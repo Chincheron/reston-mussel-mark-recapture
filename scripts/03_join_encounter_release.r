@@ -237,6 +237,30 @@ capture_history = remove_b_and_d_mussels(capture_history, config)
 # as found in Sacrificed & Random Dead Mussels 2023-2025.xlsx
 capture_history = remove_experiment_mussels_2(capture_history, config)
 
+  interval_2_remove = config$unknown_removal$interval_2
+  interval_3_remove = config$unknown_removal$interval_3
+  interval_4_remove = config$unknown_removal$interval_4
+  all_intervals = c(interval_2_remove, interval_3_remove, interval_4_remove)
+  
+test = capture_history |> 
+  filter(`Tag Number`%in% interval_2_remove) 
+test = capture_history |> 
+  filter(`Tag Number`%in% interval_3_remove) 
+test = capture_history |> 
+  filter(`Tag Number`%in% interval_4_remove) 
+
+
+# --- Update ch for unknown removals ---
+source(custom_lib_3)
+df = remove_unknown_removals(capture_history, config)
+
+test = df |> 
+  filter(`Tag Number`%in% interval_2_remove) 
+test = df |> 
+  filter(`Tag Number`%in% interval_3_remove) 
+test = df |> 
+  filter(`Tag Number`%in% interval_4_remove) 
+
 #TODO - Confirm that encounter histories were built correctly
 
 #TODO - deal with handful of mismatches compared to release data

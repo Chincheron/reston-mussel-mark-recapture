@@ -258,5 +258,58 @@ experiment_removal:
     - C244
     - B338
     - C099
+# Unknown reasons for removal 
+# source: 
+# workbook: Sacrificed & Random Dead Mussels 2023-2025.xlsx
+# sheet: Sheet1
+# range: A:E
+unknown_removal:
+  interval_2:
+    - B335
+    - B748
+    - B875
+    - C186
+    - C411
+    - C637
+    - C676
+    - D103
+    - D169
+    - D198
+  interval_3:
+    - B498
+    - D059
+    - D073
+    - D257
+    - D710
+    - B374
+    - C369
+    - B228
+    - B446
+    - C623
+    - D777
+  interval_4:
+    - B751
+    - B811
+    - C124
+    - C811
+    - C854
+    - D142
+    - D210
+    - B280
+    - B499
+    - B569
+    - B597
+    - B841
+    - C137
+    - C616
+    - C633
+    - D189
+    - D266
+    - D267
+    - D300
+    - D788
+
+
+
 
 
