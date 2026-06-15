@@ -40,7 +40,10 @@ get_global_fig_config = function() {
     model = 'model',
     s_lower_ci = 's_lcl',
     s_upper_ci = 's_ucl',
-    abundance_release = 'abundance_total_release'
+    abundance_release = 'abundance_total_release',
+    abundance = 'abundance',
+    abundance_lower_ci = 'abundance_lcl',
+    abundance_upper_ci = 'abundance_ucl'
   ),
   category_order = list(
     sampling_occasion = c('Release', 'Occasion 2', 'Occasion 3', 'Occasion 4', 

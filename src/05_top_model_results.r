@@ -417,6 +417,10 @@ data = data |>
   estimate = c(
     config$sites$snakeden$initial_release,
     config$sites$glade$initial_release
+  ),
+  abundance = c(
+    config$sites$snakeden$initial_release,
+    config$sites$glade$initial_release
   )
 )
 
