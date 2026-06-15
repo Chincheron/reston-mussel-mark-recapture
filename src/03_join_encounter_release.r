@@ -454,3 +454,24 @@ fix_alive_after_dead = function(df){
   return(df)
 
 }
+
+remove_experiment_mussels = function(df, config) {
+  removed_mussels_alive = config$removed_mussels_alive
+  removed_mussels_dead = config$removed_mussels_dead
+ 
+  df = df |> 
+    mutate(
+      ch = ifelse(
+        `Tag Number` %in% removed_mussels_alive,
+        "101100000000000000",
+        ch
+      ),
+      ch = ifelse(
+        `Tag Number` %in% removed_mussels_dead,
+        "100100000000000000",
+        ch
+      )
+    )
+
+  return(df)
+}

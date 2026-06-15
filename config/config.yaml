@@ -49,3 +49,40 @@ sheet_ranges:
     - { occasion: 6, sheet: "2025 Glade MR", range: "I4:N297",   expected_rows: 293 }
     - { occasion: 7, sheet: "2025 Glade MR", range: "P4:U238",   expected_rows: 234 }
     - { occasion: 8, sheet: "2025 Glade MR", range: "W4:AB271",  expected_rows: 267 }
+
+# Removed mussels for chester experiment
+removed_mussels_alive:
+  - C700
+  - B080
+  - D506
+  - C251
+  - B635
+  - B526
+  - B638
+  - B942
+  - C954
+  - O027
+  - C758
+  - B167
+  - B170
+  - B106
+  - C559
+  - B840
+  - C379
+  - B098
+  - C145
+  - C094
+  - B090
+  - B972
+  - C291
+  - B628
+  - D412
+  - C352
+  - D392
+  - B064
+  - D434
+  - C311
+removed_mussels_dead:
+  - D013
+
+

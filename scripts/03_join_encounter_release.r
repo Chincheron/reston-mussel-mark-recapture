@@ -210,7 +210,6 @@ write_csv(alive_after_dead, save_path)
 # Remove any 'Alive' occurences after 'Dead'
 # Except for tag O014, which would result in no release occurences before death
   # For this tag, remove the 'Dead' occurrence
-source(custom_lib_3)
 capture_history = fix_alive_after_dead(capture_history)
 
 # Confirm fix
@@ -223,6 +222,15 @@ capture_history = create_ch_col(capture_history) |>
   create_ch_qc_cols()
 save_path = path(interim_folder, "qc_capture_history_v3.csv")
 write_csv(capture_history, save_path)
+
+# -----------------------------------------------------------------------------
+# Final hard coded fixes
+# -----------------------------------------------------------------------------
+
+# --- Code mussels removed for Chester Experiments ---
+capture_history = remove_experiment_mussels(capture_history, config)
+
+
 
 #TODO - Confirm that encounter histories were built correctly
 
