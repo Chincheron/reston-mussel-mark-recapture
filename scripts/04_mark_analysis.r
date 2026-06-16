@@ -74,7 +74,7 @@ site_input = split(mark_input, mark_input$presumed_site)
 model_def = list(
 #phi
 S.dot=list(formula=~1),
-#S.time = list(formula=~time),
+S.time = list(formula=~time),
 S.year=list(formula=~year),
 #p
 p.dot=list(formula=~1),
@@ -87,9 +87,10 @@ r.year=list(formula=~year),
 #F
 F.fixed = list(formula=~1, fixed = 1)
 )
+
 #Testing
- source(custom_lib_1)
-# results = run_burnham_model_2("glade", mark_input, mark_obj_folder, model_def, config)
+# source(custom_lib_1)
+# results = run_burnham_model_2("snakeden", mark_input, mark_obj_folder, model_def, config)
 # results = run_burnham_model_2("snakeden", mark_input, mark_obj_folder, config)
 # test = adjust.chat(0.5, results)
 

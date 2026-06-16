@@ -80,7 +80,7 @@ run_burnham_model_2 = function(site, mark_input, object_folder, model_def, confi
       x,
       list(
         fixed=list(
-          cohort=c(last_occasion),
+          time=c(last_occasion),
           value=0
         )
       ) 
