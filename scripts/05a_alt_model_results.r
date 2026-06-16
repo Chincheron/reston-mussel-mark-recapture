@@ -80,10 +80,10 @@ write_csv(model_comparison_glade, model_file_glade)
 # -----------------------------------------------------------------------------
 
 snakeden_selected_model = extract_rmark_model_results(results_list, "snakeden", 
-  "S.dot.p.year.r.year.F.fixed")
+  "S.time.p.dot.r.dot.F.fixed")
 
 glade_selected_model = extract_rmark_model_results(results_list, "glade", 
-  "S.dot.p.year.r.year.F.fixed")
+  "S.time.p.year.r.dot.F.fixed")
 
 selected_model_results = bind_rows(snakeden_selected_model, glade_selected_model)
 
