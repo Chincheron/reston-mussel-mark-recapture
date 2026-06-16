@@ -121,6 +121,10 @@ saveRDS(results_list, data_objects_path, ascii = TRUE)
 # Get global plot variables and settings
 # -----------------------------------------------------------------------------
 
+# Filter out last interval (post sampling recovery period)
+top_model_results = top_model_results |> 
+  filter(!Occasion %in% c("Interval 9", "Occasion 10"))
+
 source(custom_lib_2)
 # Specifies settings for visual aspects of all figures
 all_plot_config <- get_global_fig_config()

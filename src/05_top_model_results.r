@@ -91,128 +91,130 @@ data = data |>
   new_rows = data[0, ]
   
   for(s in unique(data$site)){
-      site_occasions = data |> 
-        filter(site == s) |> 
-        pull(Occasion) |> 
-        unique()
+    site_new_rows = data[0, ]
 
-      if (
-        "Interval 1" %in% site_occasions &&
-          !any(site_occasions %in% paste("Interval", 2:8))
-      ) {
-        site_new_rows <- bind_rows(
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 1"
-          ) |>
-          mutate(
-            Occasion = "Interval 2"
-          ),
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 1"
-          ) |>
-          mutate(
-            Occasion = "Interval 3"
-          ),
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 1"
-          ) |>
-          mutate(
-            Occasion = "Interval 4"
-          ),
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 1"
-          ) |>
-          mutate(
-            Occasion = "Interval 5"
-          ),
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 1"
-          ) |>
-          mutate(
-            Occasion = "Interval 6"
-          ),
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 1"
-          ) |>
-          mutate(
-            Occasion = "Interval 7"
-          ),
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 1"
-          ) |>
-          mutate(
-            Occasion = "Interval 8"
-          ),
-        )
-      } else if (
-        !any(site_occasions %in% c(
-          "Interval 3",
-          "Interval 4",
-          "Interval 7",
-          "Interval 8"
-        ))
-      ) {
-        site_new_rows <- bind_rows(
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 2"
-          ) |>
-          mutate(
-            Occasion = "Interval 3"
-          ),
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 2"
-          ) |>
-          mutate(
-            Occasion = "Interval 4"
-          ),
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 6"
-          ) |>
-          mutate(
-            Occasion = "Interval 7"
-          ),
-          data |>
-          filter(
-            site == s,
-            Parameter == "S",
-            Occasion == "Interval 6"
-          ) |>
-          mutate(
-            Occasion = "Interval 8"
-          ),
-        )
-      }
-    new_rows = bind_rows(new_rows, site_new_rows)
+    site_occasions = data |> 
+      filter(site == s) |> 
+      pull(Occasion) |> 
+      unique()
+
+    if (
+      "Interval 1" %in% site_occasions &&
+        !any(site_occasions %in% paste("Interval", 2:8))
+    ) {
+      site_new_rows <- bind_rows(
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 1"
+        ) |>
+        mutate(
+          Occasion = "Interval 2"
+        ),
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 1"
+        ) |>
+        mutate(
+          Occasion = "Interval 3"
+        ),
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 1"
+        ) |>
+        mutate(
+          Occasion = "Interval 4"
+        ),
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 1"
+        ) |>
+        mutate(
+          Occasion = "Interval 5"
+        ),
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 1"
+        ) |>
+        mutate(
+          Occasion = "Interval 6"
+        ),
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 1"
+        ) |>
+        mutate(
+          Occasion = "Interval 7"
+        ),
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 1"
+        ) |>
+        mutate(
+          Occasion = "Interval 8"
+        ),
+      )
+    } else if (
+      !any(site_occasions %in% c(
+        "Interval 3",
+        "Interval 4",
+        "Interval 7",
+        "Interval 8"
+      ))
+    ) {
+      site_new_rows <- bind_rows(
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 2"
+        ) |>
+        mutate(
+          Occasion = "Interval 3"
+        ),
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 2"
+        ) |>
+        mutate(
+          Occasion = "Interval 4"
+        ),
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 6"
+        ) |>
+        mutate(
+          Occasion = "Interval 7"
+        ),
+        data |>
+        filter(
+          site == s,
+          Parameter == "S",
+          Occasion == "Interval 6"
+        ) |>
+        mutate(
+          Occasion = "Interval 8"
+        ),
+      )
+    }
+  new_rows = bind_rows(new_rows, site_new_rows)
   }
 
   

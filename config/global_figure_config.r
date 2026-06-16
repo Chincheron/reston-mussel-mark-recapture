@@ -55,8 +55,7 @@ get_global_fig_config = function() {
       'Interval 5',
       'Interval 6',
       'Interval 7',
-      'Interval 8',
-      'Interval 9'
+      'Interval 8'
     ),
     reduced_model_order = c('top', 'reduced_from_top')
   ),
@@ -73,8 +72,7 @@ get_global_fig_config = function() {
       'Interval 5' = "5",
       'Interval 6' = "6",
       'Interval 7' = "7",
-      'Interval 8' = "8",
-      'Interval 9' = "9"
+      'Interval 8' = "8"
     ),
     sampling_occasion = c(
       'Release' = 'Release',
