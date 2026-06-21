@@ -2,11 +2,13 @@ library(yaml)
 library(purrr)
 library(dplyr)
 library(here)
+library(rprojroot)
 
 
 load_config = function(){
 
-  config_file = path(here(), "config", "config.yaml")
+  root = find_root(has_file("pyproject.toml"))
+  config_file = path(root, "config", "config.yaml")
   config = yaml.load_file(config_file)
 
   # Add intervals_days to each site
