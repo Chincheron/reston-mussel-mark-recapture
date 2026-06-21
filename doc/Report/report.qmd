@@ -1,0 +1,28 @@
+---
+title: "Reston Mark-Recapture Methods"
+bibliography: sections/references.bib 
+format: 
+    docx:
+        reference-doc: template.docx
+---
+
+```{r}
+library(reticulate)
+library(fs)
+global_paths = import("config.paths", convert = TRUE) 
+config_file = as.character(global_paths$CONFIG / 'config.R')
+source(config_file)
+config = load_config()
+#source(source_path)
+```
+
+
+{{< include sections/methods.qmd >}}
+
+{{< include sections/results.qmd >}}
+
+\newpage
+# References
+
+::: {refs}
+:::
