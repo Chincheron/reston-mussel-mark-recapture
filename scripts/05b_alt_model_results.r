@@ -37,7 +37,7 @@ source(custom_lib_2)
 # -----------------------------------------------------------------------------
 
 # Set directories
-SCRIPT_NAME = '05a_alt_model_results'
+SCRIPT_NAME = '05b_alt_model_results'
 source_folder = path(global_paths$DATA_PIPELINE)
 pipeline_folder = path(global_paths$DATA_PIPELINE, SCRIPT_NAME)
 interim_folder = path(global_paths$DATA_INTERIM, SCRIPT_NAME)
@@ -80,10 +80,10 @@ write_csv(model_comparison_glade, model_file_glade)
 # -----------------------------------------------------------------------------
 
 snakeden_selected_model = extract_rmark_model_results(results_list, "snakeden", 
-  "S.time.p.dot.r.dot.F.fixed")
+  "S.year.p.dot.r.year.F.fixed")
 
 glade_selected_model = extract_rmark_model_results(results_list, "glade", 
-  "S.time.p.year.r.dot.F.fixed")
+  "S.dot.p.year.r.year.F.fixed")
 
 selected_model_results = bind_rows(snakeden_selected_model, glade_selected_model)
 
