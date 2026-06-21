@@ -3,6 +3,7 @@
 sites:
   snakeden:
     name: "Snakeden Run"
+    coord: "38.9238, -77.33168"
     initial_release: 1578
     sampling_occasions:
       - { occasion: 0, date: "2023-07-27" }
@@ -17,6 +18,7 @@ sites:
 
   glade:
     name: "Glade Run"
+    coord: "38.93031, -77.34245"
     initial_release: 1224
     sampling_occasions:
       - { occasion: 0, date: "2023-07-26" }
@@ -49,6 +51,11 @@ sheet_ranges:
     - { occasion: 6, sheet: "2025 Glade MR", range: "I4:N297",   expected_rows: 293 }
     - { occasion: 7, sheet: "2025 Glade MR", range: "P4:U238",   expected_rows: 234 }
     - { occasion: 8, sheet: "2025 Glade MR", range: "W4:AB271",  expected_rows: 267 }
+
+# Report numbers
+report_variables:
+  snakeden_release: 1578
+  glade_release: 1224
 
 # Removed mussels for chester experiment
 # source: 

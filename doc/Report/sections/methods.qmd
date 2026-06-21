@@ -2,17 +2,14 @@
 # Methods
 ## Mark-recapture sampling
 
-Harrison Lake and FMCC jointly released a total of 3,494 mussels of four species of freshwater mussels on October 11, 2023 in the Shenandoah River at the Bentonville site (38.84376, -78.33875). 
-Of these releases, 1,590 were uniquely tagged with Hallprint glue-on shellfish tags such that the individual mussel could be later identified. 
-Of these, 1,590 mussels, 49 *Alasmidonta varicosa* released by Harrison Lake were also tagged with a PIT transponder. 
-In 2024, the site was sampled four times from June to October.
-We sampled the entire area of the site twice by:
-
-1) snorkeling 
-2) passing a PIT tag reader over the area  
-
+We released a total of `{r} n_glade_release + n_snakeden_release` adult *Elliptio complanata* at two second-order tributaries to the Potomac River.
+We released `{r} n_glade_release` at Glade Run (`{r} coord_glade`) on July 26, 2023, and `{r} n_snakeden_release` at Snakeden Run (`{r} coord_snakeden`) on July 27. 
+All releases were uniquely tagged with Hallprint glue-on shellfish tags such that the individual mussel could be later identified. 
+Each site was later sampled a total of eight times from July 2023 to September 2024
+We sampled the entire area of the site twice by snorkeling (TODO Add table of dates here?). 
 For each mussel encountered, we measured its overall length and recorded the unique tag number. 
-Untagged mussels were not tagged. 
+Any untagged *Elliptio complanata* found on these occasions were tagged. 
+Becuase *Elliptio complanata* did not occur at either site prior to the 2023 release, these untagged individuals represented previously tagged mussels whose tags were lost. 
 
 ## POPAN description
 We were interested primarily in estimating survival of the release cohort over time and the corresponding abundance on each sampling occasion.

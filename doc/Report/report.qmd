@@ -13,13 +13,15 @@ global_paths = import("config.paths", convert = TRUE)
 config_file = as.character(global_paths$CONFIG / 'config.R')
 source(config_file)
 config = load_config()
+# Prepare report variables
+load_report_results_file = path(global_paths$SRC, 'load_report_results.r')
+source(load_report_results_file)
 #source(source_path)
 ```
 
 
 {{< include sections/methods.qmd >}}
 
-{{< include sections/results.qmd >}}
 
 \newpage
 # References

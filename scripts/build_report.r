@@ -5,5 +5,6 @@
 # =============================================================================
 
 library(quarto)
+library(here)
 
 quarto_render("doc/Report/report.qmd", output_file = "reston_mark_recapture_methods_results_v0.1")
