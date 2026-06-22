@@ -282,6 +282,11 @@ data = data |>
       estimate^(interval_days/365.25),
       0
     ),
+    occasion_survival_se = if_else(
+      Parameter == "S",
+      se^(interval_days/365.25),
+      0
+    ),
     occasion_survival_lcl = if_else(
       Parameter == "S",
       s_lcl^(interval_days/365.25),
