@@ -46,6 +46,17 @@ If true survival is higher than we estimated, then the abundance estimate on the
 # Tables
 
 ```{r}
+#| label: tbl-occasions
+#| tbl-cap: 'Abundance estimates from the selected POPAN model. Each row (i.e., species) represents results from a single analysis/model.'
+#| ft.keepnext: false
+
+make_occasion_table(tbl_occasion_info)
+
+```
+
+
+
+```{r}
 #| label: tbl-survival
 #| tbl-cap: 'Abundance estimates from the selected POPAN model. Each row (i.e., species) represents results from a single analysis/model.'
 #| ft.keepnext: false
