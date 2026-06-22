@@ -440,7 +440,9 @@ build_base_plot = function(data, global_config, family_config, figure_config = l
   }
 
   p = p + 
-    scale_x_discrete(labels = config$x_order_label)
+    scale_x_discrete(labels = config$x_order_label,
+      guide = guide_axis(n.dodge = config$x_order_label_dodge)
+    )
 
   ggsave(
   filename =  config$save_file_name,
