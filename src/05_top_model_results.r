@@ -448,8 +448,8 @@ build_base_plot = function(data, global_config, family_config, figure_config = l
   filename =  config$save_file_name,
   plot = p,
   path = config$save_folder,  
-  width = 8,
-  height = 5,
+  width = 12,
+  height = 7.5,
   dpi = 300
   )  
 
