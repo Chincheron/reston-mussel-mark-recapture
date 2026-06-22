@@ -1,15 +1,20 @@
 # Results
 
-We were able to successfully estimate apparent survival and abundance for both *Elliptio complanata
-* and *Alasmidonta varicosa*. 
-We were unable to estimate these parameters for either *Elliptio fisheriana* or *Lampsilis cardium*. 
-No models for these species successfully converged, most likely due to low initial releases and recapture rates.
-For estimation of *E. complanata*, and *A. varicosa*, we used the model where apparent survival varied by facility but was the same between sampling occasions, and capture probability varied by time but was the same for both facilities.
-Apparent survival estimates ranged from `{r} min_survival_varicosa` to `{r} max_survival_varicosa` for *A. varicosa* and from `{r} min_survival_complanata` to `{r} max_survival_complanata` for *E. complanata* (@fig-survival). 
-Survival was higher for the Harrison Lake cohorts for both species, although the difference was much greater for *A. varicosa*. 
+The top model for Snakeden Run based on $AIC_c$ was $S_(time) p_(year) r_(year)$. 
+However, estimates for several $r$ parameters failed to converge.
+Similarly, the second model (S_(time) p_(.) r_(year)), had similar convergence issues for some $r$ parameters.
+Consequently, we selected the third model ($S_(time) p_(.) r_(.)$) for estimating survival and abundance at Snakeden Run.
 
-Abundance estimates of the uniquely tagged release cohorts ranged from `{r} min_abundance_varicosa` to `{r} max_abundance_varicosa` for *A. varicosa* and `{r} min_abundance_complanata` to `{r} max_abundance_complanata` for *E. complanata* (@tbl-abundance). 
-These estimates were directly derived from the release cohort of uniquely tagged mussels and survival estimates.
+The top model for Glade Run was ($S_(time) p_(year) r_(year)$).
+Some estimates of both $S$ and $r$ parameters failed to converge.
+Consequently we selected the second model ($S_(time) p_(year) r_(.)$) for estimating survival and abundance at Glade Run. 
+
+Survival estimates ranged from X to Y at Snakeden Run and X to Y at Glade Run (Table reference and @fig-survival).
+
+Abundance estimates ranged from X to Y at Snakeden Run and X to Y at Glade Run.  
+These estimates were directly derived from the release cohort and survival estimates of each site.
+
+
 Similar to apparent survival, abundance estimates were higher for the Harrison Lake cohorts for both species. 
 This difference was less pronounced when reporting abundance estimates as a percentage of the size of the release cohort (@fig-abundance-percent).
 In either case, abundance estimates of the uniquely tagged FMCC cohorts were substantially lower than Harrison Lake cohorts.
@@ -17,6 +22,13 @@ However, FMCC released a substantial number of non-uniquely tagged and untagged 
 Applying the estimated survival to the entire release cohort of FMCC mussels resulted in abundance estimates ranging from `{r} min_abundance_all_varicosa` to `{r} max_abundance_all_varicosa` for *A. varicosa* and `{r} min_abundance_all_complanata` to `{r} max_abundance_all_complanata` for *E. complanata* (@tbl-abundance_all and @fig-abundance-all).  
 
 # Discussion
+
+Survival was higher at Glade Run for all occasions. This is possibly due to the higher gradient **See report for description here**.
+Abundance estimates seem to match naive estimates of abundance based on raw number of mussels observed alive at each occasion. 
+However, it is possible that our survival estimates are slightly underestimated compared to true survival.
+There was high tag loss (**%here**) at each site.
+Individuals with lost tags are modeled as if they were not seen again, which has the effect of underestiamting survival (**reference**) 
+
 
 Survival was generally higher for Harrison Lake cohorts compared to FMCC for each species.
 One possible reason for this is because FMCC released smaller individuals than Harrison Lake. 
