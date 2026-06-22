@@ -54,7 +54,7 @@ Essentially, if detectability is high and the data indicates very few mussels we
 #| tbl-cap: 'Abundance estimates from the selected POPAN model. Each row (i.e., species) represents results from a single analysis/model.'
 #| ft.keepnext: false
 
-#make_abundance_table(tbl_abundance_summary)
+make_survival_table(tbl_survival_summary)
 
 ```
 

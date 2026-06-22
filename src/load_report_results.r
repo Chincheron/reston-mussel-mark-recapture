@@ -19,10 +19,70 @@ coord_glade = config$sites$glade$coord
 n_snakeden_release = config$sites$snakeden$initial_release
 coord_snakeden = config$sites$snakeden$coord
 
-# set_flextable_defaults(fonts_ignore = TRUE)
+set_flextable_defaults(fonts_ignore = TRUE)
 
-# SCRIPT_NAME = '07_reduced_model_results'
-# TABLE_PATH = path(RESULTS_TABLES, SCRIPT_NAME)
+SCRIPT_NAME = '05a_alt_model_results'
+TABLE_PATH = path(global_paths$RESULTS_TABLES, SCRIPT_NAME)
+
+# Table showing abundance estimates 
+path = path(TABLE_PATH, 'survival_summary.csv')
+tbl_survival_summary = read_csv(path)  
+
+
+# function for making table object out of two abundance tables for rendering 
+# Called in main document
+make_survival_table = function(test_load) {
+  # occasions = c('July 2023 - July 2024')
+  # test_load = test_load |>
+  #   pivot_wider(
+  #     names_from = 'Site',
+  #     values_from = all_of(occasions),
+  #     names_glue = '{.value}_{facility}'
+  #   ) |> 
+  #   select(species, 
+  #        map(occasions, ~ paste0(.x, "_", c("FMCC", "Harrison Lake"))) |> unlist()
+  # )
+
+  ft = flextable(test_load) |> 
+  #    set_header_labels(
+  #     `species` = "Species",
+  #     `Release_FMCC` = "FMCC",
+  #     `Release_Harrison Lake` = "Harrison Lake",
+  #     `MR 1_FMCC` = "FMCC",
+  #     `MR 1_Harrison Lake` = "Harrison Lake",
+  #     `MR 2_FMCC` = "FMCC",
+  #     `MR 2_Harrison Lake` = "Harrison Lake",
+  #     `MR 3_FMCC` = "FMCC",
+  #     `MR 3_Harrison Lake` = "Harrison Lake",
+  #     `MR 4_FMCC` = "FMCC",
+  #     `MR 4_Harrison Lake` = "Harrison Lake"
+  # ) |>
+  # # Add spanning top header row for occasions
+  # add_header_row(
+  #   values    = c("", occasions),
+  #   colwidths = c(1, rep(2, 5))
+  # ) |>
+  # Style
+  theme_vanilla() |>
+  align(align = "center", part = "header") |>
+  align(align = 'center', part = 'body') |> 
+  align(j = 1, align = "left", part = "all") |>
+  fontsize(size = 8, part = "all") |> 
+  padding(padding.top = 2, padding.bottom = 2, 
+          padding.left = 3, padding.right = 3, part = "all") |> 
+  width(j = 2:ncol(test_load), width = (6.5 - .8) / 10) |>  # distribute remaining width evenly across data cols
+  width(j = 1, width = .8) 
+    # autofit() |> 
+  # fit_to_width(max_width = 6.5) |> 
+  # set_table_properties(
+  #   layout= 'fixed',
+  #   width = 1,
+  #   align = 'left'
+  # )
+
+ft
+}
+
 
 # max_species_abundance = function(species, table){
 #   #columns to use for max/min for abundance
