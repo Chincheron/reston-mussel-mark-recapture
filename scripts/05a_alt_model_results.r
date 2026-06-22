@@ -241,3 +241,30 @@ tbl_save_object = tbl_survival_summary
 object_path = path(table_folder, 'survival_summary.csv')
 write_csv(tbl_save_object, object_path)
 
+occasion_rename_map = all_plot_config$category_labels$sampling_occasion
+
+tbl_abundance_summary = selected_model_results |>  
+  filter(Parameter == 'Abundance') |> 
+  group_by(site, Occasion, occasion_index) |> 
+  summarize(
+    `Abundance Estimate` = mean(abundance),
+    #`Abundance Survival SE` = mean(se),
+    `Abundance LCL` = mean(abundance_lcl),
+    `Abundance UCL` = mean(abundance_ucl)
+  ) |> 
+  mutate(
+    site = str_to_title(site),
+    Occasion = recode(Occasion, !!!occasion_rename_map),
+    #Round all numbers and truncate after 2nd decimal place
+    across(where(is.numeric), ~format(round(., 0), nsmall = 0))
+  ) |> 
+  rename(
+    Site = site
+  ) |> 
+  arrange(Site, occasion_index) |> 
+  select(-occasion_index)
+tbl_save_object = tbl_abundance_summary
+# Save csv to results folder (for report)
+object_path = path(table_folder, 'abundance_summary.csv')
+write_csv(tbl_save_object, object_path)
+

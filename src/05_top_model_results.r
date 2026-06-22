@@ -338,7 +338,8 @@ data = data |>
   abundance = c(
     config$sites$snakeden$initial_release,
     config$sites$glade$initial_release
-  )
+  ),
+  occasion_index = 0
 )
 
 
