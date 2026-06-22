@@ -43,7 +43,10 @@ get_global_fig_config = function() {
     abundance_release = 'abundance_total_release',
     abundance = 'abundance',
     abundance_lower_ci = 'abundance_lcl',
-    abundance_upper_ci = 'abundance_ucl'
+    abundance_upper_ci = 'abundance_ucl',
+    occasion_survival = 'occasion_survival',
+    occasion_lower_ci = 'occasion_survival_lcl',
+    occasion_upper_ci = 'occasion_survival_ucl'
   ),
   category_order = list(
     sampling_occasion = c('Release', 'Occasion 2', 'Occasion 3', 'Occasion 4', 
@@ -65,25 +68,25 @@ get_global_fig_config = function() {
       snakeden = "Snakeden"
     ),
     sampling_occasion_s = c(
-      'Interval 1' = "1",
-      'Interval 2' = "2", 
-      'Interval 3' = "3", 
-      'Interval 4' = "4",
-      'Interval 5' = "5",
-      'Interval 6' = "6",
-      'Interval 7' = "7",
-      'Interval 8' = "8"
+      'Interval 1' = "July 2023 - July 2024",
+      'Interval 2' = "July 2024 - Aug. 2024", 
+      'Interval 3' = "Aug. 2024 - Oct. 2024", 
+      'Interval 4' = "Oct. 2024 - March 2025",
+      'Interval 5' = "March 2025 - July 2025",
+      'Interval 6' = "July 2025 - Aug. 2025",
+      'Interval 7' = "Aug. 2025 - Sept. 2025",
+      'Interval 8' = "Sept. 2025 - Oct. 2025"
     ),
     sampling_occasion = c(
-      'Release' = 'Release',
-      'Occasion 2' = "2", 
-      'Occasion 3' = "3", 
-      'Occasion 4' = "4", 
-      'Occasion 5' = "5", 
-      'Occasion 6' = "6", 
-      'Occasion 7' = "7", 
-      'Occasion 8' = "8",
-      'Occasion 9' = "9"
+      'Release' = 'Release (July 2023)',
+      'Occasion 2' = "July 2024", 
+      'Occasion 3' = "Aug. 2024", 
+      'Occasion 4' = "Oct. 2024", 
+      'Occasion 5' = "March 2025", 
+      'Occasion 6' = "July 2025", 
+      'Occasion 7' = "Aug. 2025", 
+      'Occasion 8' = "Sept. 2025",
+      'Occasion 9' = "Oct. 2025"
     )
   ),
   theme = theme_bw(base_size = 12)

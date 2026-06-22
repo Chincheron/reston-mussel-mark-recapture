@@ -134,14 +134,15 @@ cm = all_plot_config$column_mapping
 # Define initial settings for group of figures
 survival_plot_config <- list(
   parameter = "S",
-  y_factor = cm$parameter_estimate,
-  y_label   = "Estimated Survival",
-  y_variance_upper = cm$s_upper_ci,
-  y_variance_lower = cm$s_lower_ci,
+  y_factor = cm$occasion_survival,
+  y_label   = "Estimated Survival Between Occasions",
+  y_variance_upper = cm$occasion_upper_ci,
+  y_variance_lower = cm$occasion_lower_ci,
   x_factor = cm$sampling_occasion,
   x_factor_label = all_plot_config$labels$Occasion,
   x_order = all_plot_config$category_order$sampling_occasion_s,
   x_order_label = all_plot_config$category_labels$sampling_occasion_s,
+  x_order_label_dodge = 2,
   grouping = cm$site,
   grouping_label = all_plot_config$labels$site,
   grouping_order = c('glade', 'snakeden'),
@@ -160,7 +161,7 @@ survival_plot_config <- list(
 
 # --- Survival ---
 config_override = list(
-  save_file_name = 'Figure_1_survival_top_model.jpg',
+  save_file_name = 'Figure_1_survival_selected_model.jpg',
     x_factor_label = "Interval"
 )
 source(custom_lib_1)
@@ -177,6 +178,7 @@ abundance_plot_config <- list(
   x_factor_label = all_plot_config$labels$Occasion,
   x_order = all_plot_config$category_order$sampling_occasion,
   x_order_label = all_plot_config$category_labels$sampling_occasion,
+  x_order_label_dodge = 1,
   grouping = cm$site,
   grouping_label = all_plot_config$labels$site,
   grouping_order = c('glade', 'snakeden'),
@@ -196,7 +198,7 @@ abundance_plot_config <- list(
 source(custom_lib_1)
 # --- Survival ---
 config_override = list(
-  save_file_name = 'Figure_2_abundance_top_model.jpg' 
+  save_file_name = 'Figure_2_abundance_selected_model.jpg' 
 )
 build_base_plot(selected_model_results, all_plot_config, abundance_plot_config, config_override)
 
