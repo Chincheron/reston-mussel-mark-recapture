@@ -22,6 +22,7 @@ source(load_report_results_file)
 
 {{< include sections/methods.qmd >}}
 
+{{< include sections/results.qmd >}}
 
 \newpage
 # References

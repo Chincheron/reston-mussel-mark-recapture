@@ -16,10 +16,10 @@ These estimates were directly derived from the release cohort and survival estim
 
 
 Similar to apparent survival, abundance estimates were higher for the Harrison Lake cohorts for both species. 
-This difference was less pronounced when reporting abundance estimates as a percentage of the size of the release cohort (@fig-abundance-percent).
+This difference was less pronounced when reporting abundance estimates as a percentage of the size of the release cohort (@fig-abundance).
 In either case, abundance estimates of the uniquely tagged FMCC cohorts were substantially lower than Harrison Lake cohorts.
 However, FMCC released a substantial number of non-uniquely tagged and untagged mussels. 
-Applying the estimated survival to the entire release cohort of FMCC mussels resulted in abundance estimates ranging from `{r} min_abundance_all_varicosa` to `{r} max_abundance_all_varicosa` for *A. varicosa* and `{r} min_abundance_all_complanata` to `{r} max_abundance_all_complanata` for *E. complanata* (@tbl-abundance_all and @fig-abundance-all).  
+Applying the estimated survival to the entire release cohort of FMCC mussels resulted in abundance estimates ranging from X to Y for *A. varicosa* and X to Y for *E. complanata* (tbl-abundance_all and fig-abundance-all).  
 
 # Discussion
 
@@ -43,11 +43,9 @@ Essentially, if detectability is high and the data indicates very few mussels we
 
 # Figures
 
-![Apparent survival estimates from the selected POPAN model. Error bars indicate 95% CIs. Each row (i.e., species) represents results from a single analysis/model.](../../results/figures/07_reduced_model_results/Figure_1_survival.jpg){#fig-survival}
+![Survival estimates from the selected Burnham joint model. Error bars indicate 95% CIs. Note that intervals are unequal. Estimates are the actual survival from one occasion to the next and cannot be directly compared.](../../results/figures/05a_alt_model_results/Figure_1_survival_selected_model.jpg){#fig-survival}
 
-![Abundance estimates from the selected POPAN model, reported as a percentage of the initial release of uniquely tagged individuals. Error bars indicate 95% CIs. Each row (i.e., species) represents results from a single analysis/model.](../../results/figures/07_reduced_model_results/Figure_2_abundance_percent_release.jpg){#fig-abundance-percent}
-
-![Abundance estimates of all individuals from the initial release (uniquely tagged, non-uniquely tagged, and untagged). Based on apparent survival estimates from the selected POPAN model and number of mussels in release cohorts. Each row (i.e., species) represents results from a single analysis/model.](../../results/figures/07_reduced_model_results/Figure_3_abundance_full_cohort.jpg){#fig-abundance-all}
+![Abundance estimates from the selected Burnham joint model. Error bars indicate 95% CIs.](../../results/figures/05a_alt_model_results/Figure_2_abundance_selected_model.jpg){#fig-abundance}
 
 # Tables
 
@@ -56,7 +54,7 @@ Essentially, if detectability is high and the data indicates very few mussels we
 #| tbl-cap: 'Abundance estimates from the selected POPAN model. Each row (i.e., species) represents results from a single analysis/model.'
 #| ft.keepnext: false
 
-make_abundance_table(tbl_abundance_summary)
+#make_abundance_table(tbl_abundance_summary)
 
 ```
 
@@ -65,6 +63,6 @@ make_abundance_table(tbl_abundance_summary)
 #| label: tbl-abundance_all
 #| tbl-cap: 'Abundance estimates of all individuals from the initial release (uniquely tagged, non-uniquely tagged, and untagged). Based on apparent survival estimates from the selected POPAN model and initial number of mussels released. Each row (i.e., species) represents results from a single analysis/model.'
 #| ft.keepnext: false
-make_abundance_table(tbl_abundance_all_summary)
+#make_abundance_table(tbl_abundance_all_summary)
 ```
 
