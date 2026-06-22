@@ -42,12 +42,14 @@ source_folder = path(global_paths$DATA_PIPELINE)
 pipeline_folder = path(global_paths$DATA_PIPELINE, SCRIPT_NAME)
 interim_folder = path(global_paths$DATA_INTERIM, SCRIPT_NAME)
 figure_folder = path(global_paths$RESULTS_FIGURES, SCRIPT_NAME)
+table_folder = path(global_paths$RESULTS_TABLES, SCRIPT_NAME)
 
 # Make directories
 dir_create(c(
   pipeline_folder,
   interim_folder,
-  figure_folder
+  figure_folder,
+  table_folder
   )
 )
 
@@ -201,4 +203,41 @@ config_override = list(
   save_file_name = 'Figure_2_abundance_selected_model.jpg' 
 )
 build_base_plot(selected_model_results, all_plot_config, abundance_plot_config, config_override)
+
+# =============================================================================
+# 5. Generate corresponding tables for report
+# =============================================================================
+
+# All tables are exported to the specified figure_folder
+
+# --- Survival Table ---
+
+interval_rename_map = all_plot_config$category_labels$sampling_occasion_s
+
+tbl_survival_summary = selected_model_results |> 
+  filter(Parameter == 'S') |> 
+  group_by(site, Occasion) |> 
+  summarize(
+    `Monthly Survival` = mean(estimate),
+    `Monthly Survival SE` = mean(se),
+    `Monthly Survival LCL` = mean(lcl),
+    `Monthly Survival UCL` = mean(ucl),
+    `Occasion Survival` = mean(occasion_survival),
+    `Occasion Survival SE` = mean(occasion_survival_se),
+    `Occasion Survival LCL` = mean(occasion_survival_lcl),
+    `Occasion Survival UCL` = mean(occasion_survival_ucl)
+  ) |> 
+  mutate(
+    site = str_to_title(site),
+    Occasion = recode(Occasion, !!!interval_rename_map),
+    #Round all numbers and truncate after 2nd decimal place
+    across(where(is.numeric), ~format(round(., 2), nsmall = 2)),
+  ) |> 
+  rename(
+    Site = site
+  )
+tbl_save_object = tbl_survival_summary
+# Save csv to results folder (for report)
+object_path = path(table_folder, 'survival_summary.csv')
+write_csv(tbl_save_object, object_path)
 
