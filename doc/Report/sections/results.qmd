@@ -2,55 +2,51 @@
 
 The top model for Snakeden Run based on $AIC_c$ was $S_(time) p_(year) r_(year)$. 
 However, estimates for several $r$ parameters failed to converge.
-Similarly, the second model (S_(time) p_(.) r_(year)), had similar convergence issues for some $r$ parameters.
+Similarly, the second model $(S_(time) p_(.) r_(year))$, had similar convergence issues for some $r$ parameters.
 Consequently, we selected the third model ($S_(time) p_(.) r_(.)$) for estimating survival and abundance at Snakeden Run.
 
 The top model for Glade Run was ($S_(time) p_(year) r_(year)$).
 Some estimates of both $S$ and $r$ parameters failed to converge.
 Consequently we selected the second model ($S_(time) p_(year) r_(.)$) for estimating survival and abundance at Glade Run. 
 
-Survival estimates ranged from X to Y at Snakeden Run and X to Y at Glade Run (Table reference and @fig-survival).
+Monthly survival estimates ranged from `{r} min_monthly_survival_snakeden` to `{r} max_monthly_survival_snakeden` for Snakeden Run and from `{r} min_monthly_survival_glade` to `{r} max_monthly_survival_glade` for Glade Run (@tbl-survival).
+Interval survival estimates ranged from `{r} min_interval_survival_snakeden` to `{r} max_interval_survival_snakeden` for Snakeden Run and from `{r} min_interval_survival_glade` to `{r} max_interval_survival_glade` for Glade Run (@tbl-survival and @fig-survival).
+Trends in survival over time were similar at both sites.
+However, Snakeden Run had lower survival than Glade Run during all intervals.
 
-Abundance estimates ranged from X to Y at Snakeden Run and X to Y at Glade Run.  
-These estimates were directly derived from the release cohort and survival estimates of each site.
-
-
-Similar to apparent survival, abundance estimates were higher for the Harrison Lake cohorts for both species. 
-This difference was less pronounced when reporting abundance estimates as a percentage of the size of the release cohort (@fig-abundance).
-In either case, abundance estimates of the uniquely tagged FMCC cohorts were substantially lower than Harrison Lake cohorts.
-However, FMCC released a substantial number of non-uniquely tagged and untagged mussels. 
-Applying the estimated survival to the entire release cohort of FMCC mussels resulted in abundance estimates ranging from X to Y for *A. varicosa* and X to Y for *E. complanata* (tbl-abundance_all and fig-abundance-all).  
+Corresponding abundance estimates ranged from `{r} min_abundance_snakeden` to `{r} max_abundance_snakeden` at Snakeden Run and `{r} min_abundance_glade` to `{r} max_abundance_glade` at Glade Run (@tbl-abundance and @fig-abundance). 
+Abundance at Snakeden Run declined more rapidly than Glade Run due to consistently lower interval survival estimates. 
 
 # Discussion
 
-Survival was higher at Glade Run for all occasions. This is possibly due to the higher gradient **See report for description here**.
-Abundance estimates seem to match naive estimates of abundance based on raw number of mussels observed alive at each occasion. 
-However, it is possible that our survival estimates are slightly underestimated compared to true survival.
-There was high tag loss (**%here**) at each site.
-Individuals with lost tags are modeled as if they were not seen again, which has the effect of underestiamting survival (**reference**) 
+Survival was higher at Glade Run for all occasions. 
+**Similar to report discussion here. Already written?**
 
+Abundance estimates seem to match naive estimates of abundance based on raw number of mussels observed alive at each occasion.
+On the last sampling occasion, we observed `{r} final_live_observation_glade` and `{r} final_live_observation_snakeden` live mussels at Glade Run and Snakeden Run, respectivley.
+Assuming that survival estimates from the Burnham model are true, this would suggest that we observed approximatly `{r}final_detectability_glade`% of mussels at Glade Run and `{r}final_detectability_snakeden`% of mussels at Snakeden Run on the final sampling occasion. 
+This level of detectability is somewhat higher than is typical but still within a reasonable range for freshwater mussels (**Reference**).
 
-Survival was generally higher for Harrison Lake cohorts compared to FMCC for each species.
-One possible reason for this is because FMCC released smaller individuals than Harrison Lake. 
-We would expect these smaller mussels to have a lower survival rate than older, larger mussels.
-This effect was more pronounced for *A. varicosa*. 
-While smaller sizes likely contributed to this, it is also possible that the small size and low recapture rate of the  FMCC release cohort of *A. varicosa* affected estimates of survival.
-The model used for estimation did not allow detectability to vary between facilities.
-However, of the 34 uniquely tagged mussels released by FMCC, we observed only 4 at least once over all sampling occasions, whereas 211 of the 245 Harrison Lake releases were observed.
-It is more likely that the data for uniquely tagged, FMCC *A. varicosa* were too sparse for our selected model to estimate their detectability separately from Harrison Lake releases.
-Given that the selected model assumes detectability is high and that survival estimates are linked to detectability, we expect that the true survival for FMCC *A. varicosa* is likely somewhat higher than estimated here. 
-Essentially, if detectability is high and the data indicates very few mussels were observed, then survival must by necessity be low.
+Based on confirmed mortality alone, the maximum survival over the entire 2.5-year study period is 66% at Snakeden Run and 84% at Glade Run. 
+This is higher than the estimates from the mark-recapture analysis (Snakeden: `{r}total_survival_snakeden`% and Glade: `{r}total_survival_glade`%).
+This is not surprising since the mark-recapture estimates account for the probabilities of both detecting a live mussel and recovering a dead mussel, in addition to survival. 
+Further, it is possible that our survival estimates are slightly underestimated compared to true survival.
+There was high tag loss (**% here**) at each site.
+Individuals with lost tags are modeled as if they were not seen again, which has the effect of underestiamting survival (**reference**).
+**Note: Next sentence is trying to tie this back to the naive abundance/detectability estimate from prior aragraph. I.e., it reinforces that the report and mark-recapture estaimtes are in reasonable agreement. Need to think about how to do this more clearly though**
+If true survival is higher than we estimated, then the abundance estimate on the last occasion would be correspondingly higher, and the detectability would be lower and more in line with typical detectability of freshwater mussels. 
+
 
 # Figures
 
 ![Survival estimates from the selected Burnham joint model. Error bars indicate 95% CIs. Note that intervals are unequal. Estimates are the actual survival from one occasion to the next and cannot be directly compared.](../../results/figures/05a_alt_model_results/Figure_1_survival_selected_model.jpg){#fig-survival}
 
-![Abundance estimates from the selected Burnham joint model. Error bars indicate 95% CIs.](../../results/figures/05a_alt_model_results/Figure_2_abundance_selected_model.jpg){#fig-abundance}
+![Estimated abundance on each occasion as calculated from interval survival estimates from the selected Burnham joint model. Error bars indicate 95% CIs. There are no error bars for the Release cohort because it is not an estimate.](../../results/figures/05a_alt_model_results/Figure_2_abundance_selected_model.jpg){#fig-abundance}
 
 # Tables
 
 ```{r}
-#| label: tbl-abundance
+#| label: tbl-survival
 #| tbl-cap: 'Abundance estimates from the selected POPAN model. Each row (i.e., species) represents results from a single analysis/model.'
 #| ft.keepnext: false
 
@@ -60,9 +56,9 @@ make_survival_table(tbl_survival_summary)
 
 \newpage
 ```{r}
-#| label: tbl-abundance_all
+#| label: tbl-abundance
 #| tbl-cap: 'Abundance estimates of all individuals from the initial release (uniquely tagged, non-uniquely tagged, and untagged). Based on apparent survival estimates from the selected POPAN model and initial number of mussels released. Each row (i.e., species) represents results from a single analysis/model.'
 #| ft.keepnext: false
-#make_abundance_table(tbl_abundance_all_summary)
+make_abundance_table(tbl_abundance_summary)
 ```
 

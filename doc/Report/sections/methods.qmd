@@ -5,13 +5,12 @@
 We released a total of `{r} n_glade_release + n_snakeden_release` adult *Elliptio complanata* at two second-order tributaries to the Potomac River.
 We released `{r} n_glade_release` at Glade Run (`{r} coord_glade`) on July 26, 2023, and `{r} n_snakeden_release` at Snakeden Run (`{r} coord_snakeden`) on July 27. 
 All releases were uniquely tagged with Hallprint glue-on shellfish tags such that the individual mussel could be later identified. 
-Each site was later sampled a total of eight times from July 2023 to September 2024
-We sampled the entire area of the site twice by snorkeling (TODO Add table of dates here?). 
+The entire area of each site was later sampled via snorkeling a total of eight times from July 2023 to September 2024. 
 For each mussel encountered, we measured its overall length and recorded the unique tag number. 
 Any untagged *Elliptio complanata* found on these occasions were tagged. 
 Becuase *Elliptio complanata* did not occur at either site prior to the 2023 release, these untagged individuals represented previously tagged mussels whose tags were lost. 
 
-## POPAN description
+## Burnham joint model description
 We were interested primarily in estimating survival of the release cohort over time.
 Because we also found a high proportion of dead mussels during sampling, we used Burnham's joint recovery model which incorporates both live encounters and dead recoveries (@BURNHAM 1993) to analyze our mark-recapture data.
 The Burnham model is an open population model that allows for the estimation of both apparent survival and population size. 
@@ -45,9 +44,10 @@ $$𝐴𝐼𝐶𝑐=−2log(𝐿(\hat{θ̂}))+ \frac{2𝐾(𝐾+1)}{𝑛−𝐾�
 
 where $𝐿(\hat{θ̂})$ is the likelihood of the parameter estimates, given the data, $K$ is the number of parameters, and $n$ is the sample size. 
 Normally, the best model is the one with the lowest $AICc$ score and other models are considered competing if $ΔAIC$ <2.0 (@burnham.anderson_2002_ModelSelectionMultimodel). 
-Based on this analysis, we selected the preferred model.
+Based on this analysis, we selected the preferred model and derived parameter estimates using this model.
 
-Finally, we calculated the expected abundance using survival estimates for the selected model of each site.
+Because time intervals between occasions varied, we standardized survival estimates assuming a 30 day period (i.e., monthly survival), in addition to the survival estimates over each interval (interval survival).
+Finally, we calculated the expected abundance using interval survival estimates for the selected model of each site.
 The Burnham model does not directly calculate abundance as either a real or derived parameter. 
 For this study, we were tracking a single release cohort over time. 
 Consequently we calculated the expected abundance using survival estimates from the selected model of each site. 
