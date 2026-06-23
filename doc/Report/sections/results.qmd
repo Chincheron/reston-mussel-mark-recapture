@@ -9,7 +9,7 @@ The top model for Glade Run was ($S_(time) p_(year) r_(year)$).
 Some estimates of both $S$ and $r$ parameters failed to converge.
 Consequently we selected the second model ($S_(time) p_(year) r_(.)$) for estimating survival and abundance at Glade Run. 
 
-Monthly survival estimates ranged from `{r} min_monthly_survival_snakeden` to `{r} max_monthly_survival_snakeden` for Snakeden Run and from `{r} min_monthly_survival_glade` to `{r} max_monthly_survival_glade` for Glade Run (@tbl-survival).
+Monthly survival estimates ranged from <`{r} min_monthly_survival_snakeden`.001 to `{r} max_monthly_survival_snakeden` for Snakeden Run and from `{r} min_monthly_survival_glade` to `{r} max_monthly_survival_glade` for Glade Run (@tbl-survival).
 Interval survival estimates ranged from `{r} min_interval_survival_snakeden` to `{r} max_interval_survival_snakeden` for Snakeden Run and from `{r} min_interval_survival_glade` to `{r} max_interval_survival_glade` for Glade Run (@tbl-survival and @fig-survival).
 Trends in survival over time were similar at both sites.
 However, Snakeden Run had lower survival than Glade Run during all intervals.
@@ -19,10 +19,13 @@ Abundance at Snakeden Run declined more rapidly than Glade Run due to consistent
 
 # Discussion
 
-Survival was higher at Glade Run for all occasions. 
-**Similar to report discussion here. Already written?**
+Estimated survival was higher at Glade Run for all occasions.
+The comparatively high survival at Glade Run was expected based on stream characteristics and conditions observed over the course of the survey.
+Snakeden Run has noticeably greater channel size, discharge magnitude, gradient, and shear stress compared to Glade Run.
+We also observed downstream displacement and stranding mortality due to high discharge events at Snakeden Run. 
+On the other hand, displacement at Glade Run was minimal and no stranding mortality was observed.  
 
-Mark-recapture abundance estimates seem to match naive estimates of abundance based on the raw number of mussels observed alive at each occasion.
+Abundance estimates seem to match naive estimates of abundance based on the raw number of mussels observed alive at each occasion.
 On the last sampling occasion, we observed  `{r} final_live_observation_glade` and `{r} final_live_observation_snakeden` live mussels at Glade Run and Snakeden Run, respectively.
 Assuming that survival estimates from the Burnham model are true, this would suggest that we observed approximately `{r} final_detectability_glade`% of mussels at Glade Run and `{r} final_detectability_snakeden`% of mussels at Snakeden Run on the final sampling occasion. 
 This level of detectability is somewhat higher than is typical but still within a reasonable range for freshwater mussels (**Reference**).
@@ -39,7 +42,7 @@ If our survival estimates are negatively biased, the true abundance on the last 
 
 ![Survival estimates from the selected Burnham joint model. Error bars indicate 95% CIs. Note that intervals are unequal. Estimates are the actual survival from one occasion to the next and cannot be directly compared.](../../results/figures/05a_alt_model_results/Figure_1_survival_selected_model.jpg){#fig-survival}
 
-![Estimated abundance on each occasion as calculated from interval survival estimates from the selected Burnham joint model. Error bars indicate 95% CIs. There are no error bars for the Release cohort because it is not an estimate.](../../results/figures/05a_alt_model_results/Figure_2_abundance_selected_model.jpg){#fig-abundance}
+![Estimated abundance on each occasion as calculated using interval survival estimates from the selected Burnham joint model. Error bars indicate 95% CIs. There are no error bars for the Release cohort because it is not an estimate.](../../results/figures/05a_alt_model_results/Figure_2_abundance_selected_model.jpg){#fig-abundance}
 
 # Tables
 

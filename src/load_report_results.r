@@ -146,7 +146,7 @@ final_detectability_snakeden = round(final_live_observation_snakeden / min_abund
 observed_live_dead_glade = 890
 observed_live_dead_snakeden = 698
 not_observed_glade = n_glade_release - observed_live_dead_glade
-not_observed_snakeden = n_snakeden_release = observed_live_dead_snakeden
+not_observed_snakeden = n_snakeden_release - observed_live_dead_snakeden
 #Retags (based on mark input file)
 retag_glade = 47
 retag_snakeden = 37
@@ -166,7 +166,22 @@ tbl_occasion_info <- config$sites |>
       )
     }
   ) |>
-  list_rbind()
+  list_rbind() |> 
+  mutate(
+    Occasion = replace_values(
+      as.character(Occasion), 
+      from = as.character(0:8), 
+      to = c('Release (July 2023)',
+      'July 2024', 
+      'Aug. 2024', 
+      'Oct. 2024', 
+      'March 2025', 
+      'July 2025', 
+      'Aug. 2025', 
+      'Sept. 2025',
+      'Oct. 2025')
+    )
+  )
   
 
 # -----------------------------------------------------------------------------
