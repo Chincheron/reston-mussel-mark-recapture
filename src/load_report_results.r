@@ -202,34 +202,37 @@ ft
 
 make_survival_table = function(test_load) {
   ft = flextable(test_load) |> 
-  #    set_header_labels(
-  #     `species` = "Species",
-  #     `Release_FMCC` = "FMCC",
-  #     `Release_Harrison Lake` = "Harrison Lake",
-  #     `MR 1_FMCC` = "FMCC",
-  #     `MR 1_Harrison Lake` = "Harrison Lake",
-  #     `MR 2_FMCC` = "FMCC",
-  #     `MR 2_Harrison Lake` = "Harrison Lake",
-  #     `MR 3_FMCC` = "FMCC",
-  #     `MR 3_Harrison Lake` = "Harrison Lake",
-  #     `MR 4_FMCC` = "FMCC",
-  #     `MR 4_Harrison Lake` = "Harrison Lake"
-  # ) |>
-  # # Add spanning top header row for occasions
-  # add_header_row(
-  #   values    = c("", occasions),
-  #   colwidths = c(1, rep(2, 5))
-  # ) |>
+     set_header_labels(
+      `Site` = "Site",
+      `Occasion` = "Occasion",
+      `Monthly Survival` = "Survival",
+      `Monthly Survival SE` = "SE",
+      `Monthly Survival LCL` = "LCL",
+      `Monthly Survival UCL` = "UCL",
+      `Occasion Survival` = "Survival",
+      `Occasion Survival SE` = "SE",
+      `Occasion Survival LCL` = "LCL",
+      `Occasion Survival UCL` = "UCL"
+  ) |>
+  # Add spanning top header row for occasions
+  add_header_row(
+    values    = c("", "Monthly Survival", "Interval Survival"),
+    colwidths = c(2, 4, 4)
+  ) |>
   # Style
   theme_vanilla() |>
+  merge_v(j = "Site") |> 
+  valign(j = "Site", valign = "top") |>
   align(align = "center", part = "header") |>
   align(align = 'center', part = 'body') |> 
   align(j = 1, align = "left", part = "all") |>
   fontsize(size = 8, part = "all") |> 
   padding(padding.top = 2, padding.bottom = 2, 
           padding.left = 3, padding.right = 3, part = "all") |> 
-  width(j = 2:ncol(test_load), width = (6.5 - .8) / 10) |>  # distribute remaining width evenly across data cols
-  width(j = 1, width = .8) 
+  # width(j = 2:ncol(test_load), width = (6.5 - .8) / 10) |>  # distribute remaining width evenly across data cols
+  # width(j = 1, width = .8) 
+  autofit() |> 
+  fit_to_width(max_width = 6)
     # autofit() |> 
   # fit_to_width(max_width = 6.5) |> 
   # set_table_properties(
