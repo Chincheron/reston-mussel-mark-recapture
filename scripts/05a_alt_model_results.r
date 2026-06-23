@@ -231,6 +231,7 @@ tbl_survival_summary = selected_model_results |>
     site = str_to_title(site),
     Occasion = recode(Occasion, !!!interval_rename_map),
     #Round all numbers and truncate after 2nd decimal place
+    `Monthly Survival` =  `Monthly Survival`**(1/12),
     across(where(is.numeric), ~format(round(., 3), nsmall = 2)),
   ) |> 
   rename(

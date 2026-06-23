@@ -9,7 +9,7 @@ The top model for Glade Run was ($S_(time) p_(year) r_(year)$).
 Some estimates of both $S$ and $r$ parameters failed to converge.
 Consequently we selected the second model ($S_(time) p_(year) r_(.)$) for estimating survival and abundance at Glade Run. 
 
-Monthly survival estimates ranged from <`{r} min_monthly_survival_snakeden`.001 to `{r} max_monthly_survival_snakeden` for Snakeden Run and from `{r} min_monthly_survival_glade` to `{r} max_monthly_survival_glade` for Glade Run (@tbl-survival).
+Monthly survival estimates ranged from `{r} min_monthly_survival_snakeden` to `{r} max_monthly_survival_snakeden` for Snakeden Run and from `{r} min_monthly_survival_glade` to `{r} max_monthly_survival_glade` for Glade Run (@tbl-survival).
 Interval survival estimates ranged from `{r} min_interval_survival_snakeden` to `{r} max_interval_survival_snakeden` for Snakeden Run and from `{r} min_interval_survival_glade` to `{r} max_interval_survival_glade` for Glade Run (@tbl-survival and @fig-survival).
 Trends in survival over time were similar at both sites.
 However, Snakeden Run had lower survival than Glade Run during all intervals.
@@ -40,7 +40,7 @@ If our survival estimates are negatively biased, the true abundance on the last 
 
 # Figures
 
-![Survival estimates from the selected Burnham joint model. Error bars indicate 95% CIs. Note that intervals are unequal. Estimates are the actual survival from one occasion to the next and cannot be directly compared.](../../results/figures/05a_alt_model_results/Figure_1_survival_selected_model.jpg){#fig-survival}
+![Interval survival estimates from the selected Burnham joint model. Error bars indicate 95% CIs. Note that intervals are unequal. Estimates are the actual survival from one occasion to the next and cannot be directly compared.](../../results/figures/05a_alt_model_results/Figure_1_survival_selected_model.jpg){#fig-survival}
 
 ![Estimated abundance on each occasion as calculated using interval survival estimates from the selected Burnham joint model. Error bars indicate 95% CIs. There are no error bars for the Release cohort because it is not an estimate.](../../results/figures/05a_alt_model_results/Figure_2_abundance_selected_model.jpg){#fig-abundance}
 
