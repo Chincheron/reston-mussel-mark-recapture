@@ -22,20 +22,18 @@ Abundance at Snakeden Run declined more rapidly than Glade Run due to consistent
 Survival was higher at Glade Run for all occasions. 
 **Similar to report discussion here. Already written?**
 
-Abundance estimates seem to match naive estimates of abundance based on raw number of mussels observed alive at each occasion.
-On the last sampling occasion, we observed  `{r} final_live_observation_glade` and `{r} final_live_observation_snakeden` live mussels at Glade Run and Snakeden Run, respectivley.
-Assuming that survival estimates from the Burnham model are true, this would suggest that we observed approximatly `{r} final_detectability_glade` % of mussels at Glade Run and `{r} final_detectability_snakeden` % of mussels at Snakeden Run on the final sampling occasion. 
+Mark-recapture abundance estimates seem to match naive estimates of abundance based on the raw number of mussels observed alive at each occasion.
+On the last sampling occasion, we observed  `{r} final_live_observation_glade` and `{r} final_live_observation_snakeden` live mussels at Glade Run and Snakeden Run, respectively.
+Assuming that survival estimates from the Burnham model are true, this would suggest that we observed approximately `{r} final_detectability_glade`% of mussels at Glade Run and `{r} final_detectability_snakeden`% of mussels at Snakeden Run on the final sampling occasion. 
 This level of detectability is somewhat higher than is typical but still within a reasonable range for freshwater mussels (**Reference**).
 
 Based on confirmed mortality alone, the maximum survival over the entire 2.5-year study period is 66% at Snakeden Run and 84% at Glade Run. 
 This is higher than the estimates from the mark-recapture analysis (Snakeden: `{r} total_survival_snakeden`% and Glade: `{r} total_survival_glade`%).
-This is not surprising since the mark-recapture estimates account for the probabilities of both detecting a live mussel and recovering a dead mussel, in addition to survival. 
+This is not surprising since the mark-recapture estimates account for the probabilities of both detecting a live mussel ($p$) and recovering a dead mussel ($r$), in addition to survival. 
 Further, it is possible that our survival estimates are slightly underestimated compared to true survival.
 Of the mussels observed either alive or dead at least once, `{r} retag_proportion_snakeden`% were untagged at Snakeden Run and `{r} retag_proportion_glade`% at Glade Run, suggesting at least some tag loss.
-Individuals with lost tags are modeled as if they were not seen again, which can have the effect of underestiamting survival (**reference**).
-**Note: Next sentence is trying to tie this back to the naive abundance/detectability estimate from prior aragraph. I.e., it reinforces that the report and mark-recapture estaimtes are in reasonable agreement. Need to think about how to do this more clearly though**
-If true survival is higher than we estimated, then the abundance estimate on the last occasion would be correspondingly higher, and the detectability would be lower and more in line with typical detectability of freshwater mussels. 
-
+Individuals with lost tags are modeled as if they were not seen again, which can have the effect of underestimating survival (**reference**).
+If our survival estimates are negatively biased, the true abundance on the last occasion would be correspondingly higher and detectability on the last occasion would be more in line with typical detectability of freshwater mussels.
 
 # Figures
 
@@ -47,7 +45,7 @@ If true survival is higher than we estimated, then the abundance estimate on the
 
 ```{r}
 #| label: tbl-occasions
-#| tbl-cap: 'Abundance estimates from the selected POPAN model. Each row (i.e., species) represents results from a single analysis/model.'
+#| tbl-cap: 'Sampling dates for mark-recapture surveys. '
 #| ft.keepnext: false
 
 make_occasion_table(tbl_occasion_info)
@@ -58,7 +56,7 @@ make_occasion_table(tbl_occasion_info)
 
 ```{r}
 #| label: tbl-survival
-#| tbl-cap: 'Abundance estimates from the selected POPAN model. Each row (i.e., species) represents results from a single analysis/model.'
+#| tbl-cap: 'Survival for intervals between sampling occasions as estimated from the selected Burnham joint model.'
 #| ft.keepnext: false
 
 make_survival_table(tbl_survival_summary)
@@ -68,7 +66,7 @@ make_survival_table(tbl_survival_summary)
 \newpage
 ```{r}
 #| label: tbl-abundance
-#| tbl-cap: 'Abundance estimates of all individuals from the initial release (uniquely tagged, non-uniquely tagged, and untagged). Based on apparent survival estimates from the selected POPAN model and initial number of mussels released. Each row (i.e., species) represents results from a single analysis/model.'
+#| tbl-cap: 'Abundance estimates of the initial release cohort on each sampling occasion. Based on interval survival estimates from the selected Burnham joint model and initial number of mussels released.'
 #| ft.keepnext: false
 make_abundance_table(tbl_abundance_summary)
 ```

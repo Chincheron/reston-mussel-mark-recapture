@@ -191,13 +191,8 @@ make_occasion_table = function(test_load) {
           padding.left = 3, padding.right = 3, part = "all") |> 
   autofit() |> 
   fit_to_width(max_width = 6.5) 
-  # set_table_properties(
-  #   layout= 'fixed',
-  #   width = 1,
-  #   align = 'left'
-  # )
-
-ft
+  
+  ft
 }
 
 make_survival_table = function(test_load) {
@@ -231,15 +226,8 @@ make_survival_table = function(test_load) {
           padding.left = 3, padding.right = 3, part = "all") |> 
   autofit() |> 
   fit_to_width(max_width = 6)
-    # autofit() |> 
-  # fit_to_width(max_width = 6.5) |> 
-  # set_table_properties(
-  #   layout= 'fixed',
-  #   width = 1,
-  #   align = 'left'
-  # )
-
-ft
+  
+  ft
 }
 
 # function for making table object out of abundance tables for rendering 

@@ -3,18 +3,17 @@
 ## Mark-recapture sampling
 
 We released a total of `{r} n_glade_release + n_snakeden_release` adult *Elliptio complanata* at two second-order tributaries to the Potomac River.
-We released `{r} n_glade_release` at Glade Run (`{r} coord_glade`) on July 26, 2023, and `{r} n_snakeden_release` at Snakeden Run (`{r} coord_snakeden`) on July 27. 
+We released `{r} n_glade_release` mussels at Glade Run (`{r} coord_glade`) on July 26, 2023, and `{r} n_snakeden_release` mussels at Snakeden Run (`{r} coord_snakeden`) on July 27. 
 All releases were uniquely tagged with Hallprint glue-on shellfish tags such that the individual mussel could be later identified. 
-The entire area of each site was later sampled via snorkeling a total of eight times from July 2023 to September 2024. 
+The entire area of each site was later sampled a total of eight times from July 2023 to September 2024 (@tbl-occasions) via a combination of mask and snorkel searches, view scopes, visual inspection of shallow areas, and manual substrate searches. 
 For each mussel encountered, we measured its overall length and recorded the unique tag number. 
 Any untagged *Elliptio complanata* found on these occasions were tagged. 
 Becuase *Elliptio complanata* did not occur at either site prior to the 2023 release, these untagged individuals represented previously tagged mussels whose tags were lost. 
 
 ## Burnham joint model description
 We were interested primarily in estimating survival of the release cohort over time.
-Because we also found a high proportion of dead mussels during sampling, we used Burnham's joint recovery model which incorporates both live encounters and dead recoveries (@BURNHAM 1993) to analyze our mark-recapture data.
-The Burnham model is an open population model that allows for the estimation of both apparent survival and population size. 
-It has four model parameters that are directly estimated:
+Because we also found a high proportion of dead mussels during sampling, we used Burnham's joint recovery model which incorporates both live encounters and dead recoveries (@burnham_1993_TheoryCombinedAnalysis) to analyze our mark-recapture data.
+The Burnham model is an open population model that allows for the estimation of four model parameters:
 
 1) $S_i$: probability of an individual surviving from occasion $i$ to $i+1$ 
 2) $p_i$: probability of an individual being captured alive at occasion $i$ 
@@ -25,14 +24,14 @@ Because the area for dead and live recoveries was the same, we fixed $F$ to 1 fo
 
 ## Data Analysis
 Release data for the 2023 cohort were combined with data from the eight sampling occasions in 2024 and 2025. 
-A set of candidate models were developed under the Burnham model for estimating.
+A set of candidate models were developed under the Burnham joint framework for comparison.
 Each candidate model represents a set of hypotheses regarding the four model parameters of the Burnham model (e.g., survival varies over time or is constant).
 For all models, $F$ (fidelity) was fixed to 1.
 We constructed candidate models where:
 
-1) $S$ varied between each sampling occasion ($t$), was constant between all occasions($.$), or was constant between occasions for the same year but varied between years ($year$),
-2) $p$ was constant over all occasions($.$) or was constant between occasions for the same year but varied between years ($year$),
-3) $r$ was constant over all occasions($.$) or was constant between occasions for the same year but varied between years ($year$).
+1) $S$ varied between each sampling occasion ($S_t$), was constant between all occasions($S_.$), or was constant between occasions for the same year but varied between years ($year$),
+2) $p$ was constant over all occasions($p_.$) or was constant between occasions for the same year but varied between years ($p_year$),
+3) $r$ was constant over all occasions($r_.$) or was constant between occasions for the same year but varied between years ($r_year$).
 
 This resulted in 12 total models in the candidate model set.
 We analyzed each site separately because there was limited connectivity between sites. 
@@ -46,8 +45,5 @@ where $𝐿(\hat{θ̂})$ is the likelihood of the parameter estimates, given the
 Normally, the best model is the one with the lowest $AICc$ score and other models are considered competing if $ΔAIC$ <2.0 (@burnham.anderson_2002_ModelSelectionMultimodel). 
 Based on this analysis, we selected the preferred model and derived parameter estimates using this model.
 
-Because time intervals between occasions varied, we standardized survival estimates assuming a 30 day period (i.e., monthly survival), in addition to the survival estimates over each interval (interval survival).
-Finally, we calculated the expected abundance using interval survival estimates for the selected model of each site.
-The Burnham model does not directly calculate abundance as either a real or derived parameter. 
-For this study, we were tracking a single release cohort over time. 
-Consequently we calculated the expected abundance using survival estimates from the selected model of each site. 
+Because time intervals between occasions varied, we standardized survival estimates assuming a 30 day period (i.e., monthly survival), in addition to the survival estimates over each interval between occasions (interval survival).
+Finally, we calculated the expected abundance on each occasion using interval survival estimates for the selected model of each site and the initial size of the release cohort. 
