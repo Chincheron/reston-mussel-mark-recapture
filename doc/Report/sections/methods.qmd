@@ -29,9 +29,9 @@ Each candidate model represents a set of hypotheses regarding the four model par
 For all models, $F$ (fidelity) was fixed to 1.
 We constructed candidate models where:
 
-1) $S$ varied between each sampling occasion ($S_t$), was constant between all occasions($S_.$), or was constant between occasions for the same year but varied between years ($year$),
-2) $p$ was constant over all occasions($p_.$) or was constant between occasions for the same year but varied between years ($p_year$),
-3) $r$ was constant over all occasions($r_.$) or was constant between occasions for the same year but varied between years ($r_year$).
+1) $S$ varied between each sampling occasion ($S_(t)$), was constant between all occasions($S_(.)$), or was constant between occasions for the same year but varied between years ($year$),
+2) $p$ was constant over all occasions($p_(.)$) or was constant between occasions for the same year but varied between years ($p_(year)$),
+3) $r$ was constant over all occasions($r_(.)$) or was constant between occasions for the same year but varied between years ($r_(year)$).
 
 This resulted in 12 total models in the candidate model set.
 We analyzed each site separately because there was limited connectivity between sites. 
