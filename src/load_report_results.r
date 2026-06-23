@@ -134,14 +134,14 @@ n_snakeden_release = config$sites$snakeden$initial_release
 coord_glade = config$sites$glade$coord
 coord_snakeden = config$sites$snakeden$coord
 # Survival from release to last occasion (based on mark estimate)
-total_survival_glade = min_abundance_glade / max_abundance_glade *100
-total_survival_snakeden = min_abundance_snakeden / max_abundance_snakeden * 100
+total_survival_glade = round(min_abundance_glade / max_abundance_glade *100, digits = 0)
+total_survival_snakeden = round(min_abundance_snakeden / max_abundance_snakeden * 100, digits = 0)
 #Live observation from report Figure 2
 final_live_observation_glade = 258
 final_live_observation_snakeden = 43
 # detectability assuming mark estimates are true
-final_detectability_glade = final_live_observation_glade / min_abundance_glade *100
-final_detectability_snakeden = final_live_observation_snakeden / min_abundance_snakeden *100
+final_detectability_glade = round(final_live_observation_glade / min_abundance_glade *100, digits = 0)
+final_detectability_snakeden = round(final_live_observation_snakeden / min_abundance_snakeden *100, digits = 0)
 # total observed/not observed (based on mark input file)
 observed_live_dead_glade = 890
 observed_live_dead_snakeden = 698
@@ -151,8 +151,8 @@ not_observed_snakeden = n_snakeden_release = observed_live_dead_snakeden
 retag_glade = 47
 retag_snakeden = 37
 retag_total = retag_glade + retag_snakeden
-retag_proportion_glade = retag_glade / observed_live_dead_glade * 100
-retag_proportion_snakeden = retag_snakeden / observed_live_dead_snakeden * 100
+retag_proportion_glade = round(retag_glade / observed_live_dead_glade * 100, digits = 1)
+retag_proportion_snakeden = round(retag_snakeden / observed_live_dead_snakeden * 100, digits = 1)
 
 
 # --- Create table with sampling dates ---
