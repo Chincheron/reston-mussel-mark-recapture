@@ -15,11 +15,6 @@ library(flextable)
 library(fs)
 #library(purr)
 
-n_glade_release = config$sites$glade$initial_release
-coord_glade = config$sites$glade$coord
-n_snakeden_release = config$sites$snakeden$initial_release
-coord_snakeden = config$sites$snakeden$coord
-
 set_flextable_defaults(fonts_ignore = TRUE)
 
 SCRIPT_NAME = '05a_alt_model_results'
@@ -132,6 +127,13 @@ max_abundance_snakeden = max_site_abundance(stat_site, tbl_abundance_summary)
 min_abundance_snakeden = min_site_abundance(stat_site, tbl_abundance_summary)
 
 # --- Other report variables ---
+# Total released at each site
+n_glade_release = config$sites$glade$initial_release
+n_snakeden_release = config$sites$snakeden$initial_release
+# Site coordinates
+coord_glade = config$sites$glade$coord
+coord_snakeden = config$sites$snakeden$coord
+# Survival from release to last occasion (based on mark estimate)
 total_survival_glade = min_abundance_glade / max_abundance_glade *100
 total_survival_snakeden = min_abundance_snakeden / max_abundance_snakeden * 100
 #Live observation from report Figure 2
@@ -140,6 +142,18 @@ final_live_observation_snakeden = 43
 # detectability assuming mark estimates are true
 final_detectability_glade = final_live_observation_glade / min_abundance_glade *100
 final_detectability_snakeden = final_live_observation_snakeden / min_abundance_snakeden *100
+# total observed/not observed (based on mark input file)
+observed_live_dead_glade = 890
+observed_live_dead_snakeden = 698
+not_observed_glade = n_glade_release - observed_live_dead_glade
+not_observed_snakeden = n_snakeden_release = observed_live_dead_snakeden
+#Retags (based on mark input file)
+retag_glade = 47
+retag_snakeden = 37
+retag_total = retag_glade + retag_snakeden
+retag_proportion_glade = retag_glade / observed_live_dead_glade * 100
+retag_proportion_snakeden = retag_snakeden / observed_live_dead_snakeden * 100
+
 
 # --- Create table with sampling dates ---
 tbl_occasion_info <- config$sites |>
@@ -163,49 +177,20 @@ tbl_occasion_info <- config$sites |>
 
 # Called in main document
 make_occasion_table = function(test_load) {
-  # occasions = c('July 2023 - July 2024')
-  # test_load = test_load |>
-  #   pivot_wider(
-  #     names_from = 'Site',
-  #     values_from = all_of(occasions),
-  #     names_glue = '{.value}_{facility}'
-  #   ) |> 
-  #   select(species, 
-  #        map(occasions, ~ paste0(.x, "_", c("FMCC", "Harrison Lake"))) |> unlist()
-  # )
-
   ft = flextable(test_load) |> 
-  #    set_header_labels(
-  #     `species` = "Species",
-  #     `Release_FMCC` = "FMCC",
-  #     `Release_Harrison Lake` = "Harrison Lake",
-  #     `MR 1_FMCC` = "FMCC",
-  #     `MR 1_Harrison Lake` = "Harrison Lake",
-  #     `MR 2_FMCC` = "FMCC",
-  #     `MR 2_Harrison Lake` = "Harrison Lake",
-  #     `MR 3_FMCC` = "FMCC",
-  #     `MR 3_Harrison Lake` = "Harrison Lake",
-  #     `MR 4_FMCC` = "FMCC",
-  #     `MR 4_Harrison Lake` = "Harrison Lake"
-  # ) |>
-  # # Add spanning top header row for occasions
-  # add_header_row(
-  #   values    = c("", occasions),
-  #   colwidths = c(1, rep(2, 5))
-  # ) |>
   # Style
   theme_vanilla() |>
   merge_v(j = "Site") |> 
+  valign(j = "Site", valign = "top") |>
+  fix_border_issues() |> 
   align(align = "center", part = "header") |>
   align(align = 'center', part = 'body') |> 
   align(j = 1, align = "left", part = "all") |>
   fontsize(size = 8, part = "all") |> 
   padding(padding.top = 2, padding.bottom = 2, 
           padding.left = 3, padding.right = 3, part = "all") |> 
-  width(j = 2:ncol(test_load), width = (6.5 - .8) / 10) |>  # distribute remaining width evenly across data cols
-  width(j = 1, width = .8) 
-    # autofit() |> 
-  # fit_to_width(max_width = 6.5) |> 
+  autofit() |> 
+  fit_to_width(max_width = 6.5) 
   # set_table_properties(
   #   layout= 'fixed',
   #   width = 1,
@@ -215,19 +200,7 @@ make_occasion_table = function(test_load) {
 ft
 }
 
-
 make_survival_table = function(test_load) {
-  # occasions = c('July 2023 - July 2024')
-  # test_load = test_load |>
-  #   pivot_wider(
-  #     names_from = 'Site',
-  #     values_from = all_of(occasions),
-  #     names_glue = '{.value}_{facility}'
-  #   ) |> 
-  #   select(species, 
-  #        map(occasions, ~ paste0(.x, "_", c("FMCC", "Harrison Lake"))) |> unlist()
-  # )
-
   ft = flextable(test_load) |> 
   #    set_header_labels(
   #     `species` = "Species",

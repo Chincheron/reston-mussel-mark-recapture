@@ -23,16 +23,16 @@ Survival was higher at Glade Run for all occasions.
 **Similar to report discussion here. Already written?**
 
 Abundance estimates seem to match naive estimates of abundance based on raw number of mussels observed alive at each occasion.
-On the last sampling occasion, we observed `{r} final_live_observation_glade` and `{r} final_live_observation_snakeden` live mussels at Glade Run and Snakeden Run, respectivley.
-Assuming that survival estimates from the Burnham model are true, this would suggest that we observed approximatly `{r}final_detectability_glade`% of mussels at Glade Run and `{r}final_detectability_snakeden`% of mussels at Snakeden Run on the final sampling occasion. 
+On the last sampling occasion, we observed  `{r} final_live_observation_glade` and `{r} final_live_observation_snakeden` live mussels at Glade Run and Snakeden Run, respectivley.
+Assuming that survival estimates from the Burnham model are true, this would suggest that we observed approximatly `{r} final_detectability_glade` % of mussels at Glade Run and `{r} final_detectability_snakeden` % of mussels at Snakeden Run on the final sampling occasion. 
 This level of detectability is somewhat higher than is typical but still within a reasonable range for freshwater mussels (**Reference**).
 
 Based on confirmed mortality alone, the maximum survival over the entire 2.5-year study period is 66% at Snakeden Run and 84% at Glade Run. 
-This is higher than the estimates from the mark-recapture analysis (Snakeden: `{r}total_survival_snakeden`% and Glade: `{r}total_survival_glade`%).
+This is higher than the estimates from the mark-recapture analysis (Snakeden: `{r} total_survival_snakeden`% and Glade: `{r} total_survival_glade`%).
 This is not surprising since the mark-recapture estimates account for the probabilities of both detecting a live mussel and recovering a dead mussel, in addition to survival. 
 Further, it is possible that our survival estimates are slightly underestimated compared to true survival.
-There was high tag loss (**% here**) at each site.
-Individuals with lost tags are modeled as if they were not seen again, which has the effect of underestiamting survival (**reference**).
+Of the mussels observed either alive or dead at least once, `{r} retag_proportion_snakeden`% were untagged at Snakeden Run and `{r} retag_proportion_glade`% at Glade Run, suggesting at least some tag loss.
+Individuals with lost tags are modeled as if they were not seen again, which can have the effect of underestiamting survival (**reference**).
 **Note: Next sentence is trying to tie this back to the naive abundance/detectability estimate from prior aragraph. I.e., it reinforces that the report and mark-recapture estaimtes are in reasonable agreement. Need to think about how to do this more clearly though**
 If true survival is higher than we estimated, then the abundance estimate on the last occasion would be correspondingly higher, and the detectability would be lower and more in line with typical detectability of freshwater mussels. 
 
