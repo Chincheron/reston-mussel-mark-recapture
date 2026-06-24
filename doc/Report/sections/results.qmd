@@ -28,7 +28,12 @@ On the other hand, displacement at Glade Run was minimal and no stranding mortal
 Abundance estimates seem to match naive estimates of abundance based on the raw number of mussels observed alive at each occasion.
 On the last sampling occasion, we observed  `{r} final_live_observation_glade` and `{r} final_live_observation_snakeden` live mussels at Glade Run and Snakeden Run, respectively.
 Assuming that survival estimates from the Burnham model are true, this would suggest that we observed approximately `{r} final_detectability_glade`% of mussels at Glade Run and `{r} final_detectability_snakeden`% of mussels at Snakeden Run on the final sampling occasion. 
-This level of detectability is somewhat higher than is typical but still within a reasonable range for freshwater mussels (**Reference**).
+However, model estimates of capture probability from our selected models were lower, especially at Snakeden Run (~14% at Snakeden Run and 18-36% at Glade Run).
+Capture probabilities for freshwater mussels are typically more similar to our model estimates (@villella.etal_2004_EstimatingSurvivalRecruitment and @meador.etal_2011_EvaluationFactorsInfluencing).
+While, capture probabilities this high have been observed for freshwater mussels, these higher probabilities are usually observed during warmer months (@matter.etal_2013_ModelingSurvivalPopulation, @wisniewski.etal_2013_ImperfectRecapturePotential, and @carey.etal_2019_ComparisonSystematicQuadrat).
+Indeed, @villella.etal_2004_EstimatingSurvivalRecruitment found that the highest capture probabilities for *E. complanata* occurred in July (12-18%) but was only 3% in October and January. 
+Given that model estimates of capture probability are typical of freshwater mussels, it is possible that survival estimates may be underestimated compared to true survival.
+This would cause lower estimated abundance on the last occasion, resulting in the higher estimates of detectability based on abundance and number of live mussels observed on the last occasion.    
 
 Based on confirmed mortality alone, the maximum survival over the entire 2.5-year study period is 66% at Snakeden Run and 84% at Glade Run. 
 This is higher than the estimates from the mark-recapture analysis (Snakeden: `{r} total_survival_snakeden`% and Glade: `{r} total_survival_glade`%).
@@ -36,7 +41,7 @@ This is not surprising since the mark-recapture estimates account for the probab
 Further, it is possible that our survival estimates are slightly underestimated compared to true survival.
 Of the mussels observed either alive or dead at least once, `{r} retag_proportion_snakeden`% were untagged at Snakeden Run and `{r} retag_proportion_glade`% at Glade Run, suggesting at least some tag loss.
 Individuals with lost tags are modeled as if they were not seen again, which can have the effect of underestimating survival (@nelson.etal_1980_EffectBandLoss, @diefenbach.alt_1998_ModelingEvaluationEar, @touzalin.etal_2023_MarkLossCan).
-If our survival estimates are negatively biased, the true abundance on the last occasion would be correspondingly higher and detectability on the last occasion would be more in line with typical detectability of freshwater mussels.
+If our survival estimates are negatively biased, the true abundance on the last occasion would be correspondingly higher and capture probabilities on the last occasion would be more in line with typical capture probabilities of freshwater mussels.
 
 # Figures
 
