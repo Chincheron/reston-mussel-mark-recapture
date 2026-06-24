@@ -35,7 +35,7 @@ This is higher than the estimates from the mark-recapture analysis (Snakeden: `{
 This is not surprising since the mark-recapture estimates account for the probabilities of both detecting a live mussel ($p$) and recovering a dead mussel ($r$), in addition to survival. 
 Further, it is possible that our survival estimates are slightly underestimated compared to true survival.
 Of the mussels observed either alive or dead at least once, `{r} retag_proportion_snakeden`% were untagged at Snakeden Run and `{r} retag_proportion_glade`% at Glade Run, suggesting at least some tag loss.
-Individuals with lost tags are modeled as if they were not seen again, which can have the effect of underestimating survival (**reference**).
+Individuals with lost tags are modeled as if they were not seen again, which can have the effect of underestimating survival (@nelson.etal_1980_EffectBandLoss, @diefenbach.alt_1998_ModelingEvaluationEar, @touzalin.etal_2023_MarkLossCan).
 If our survival estimates are negatively biased, the true abundance on the last occasion would be correspondingly higher and detectability on the last occasion would be more in line with typical detectability of freshwater mussels.
 
 # Figures
